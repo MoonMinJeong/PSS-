@@ -6,6 +6,9 @@ spring:
           github:
             clientId: ${GITHUB_ID}
             clientSecret: ${GITHUB_SECRET}
+          google:
+            clientId: ${GOOGLE_ID}
+            clientSecret: ${GOOGLE_SECRET}
 
   jpa:
     hibernate:
