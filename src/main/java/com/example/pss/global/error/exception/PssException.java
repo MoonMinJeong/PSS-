@@ -1,4 +1,4 @@
-package com.example.pss.global.exception.error;
+package com.example.pss.global.error.exception;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

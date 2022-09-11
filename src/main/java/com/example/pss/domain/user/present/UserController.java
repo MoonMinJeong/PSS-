@@ -17,5 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserSignService userSignService;
 
-    
+    @GetMapping
+    public String test() {
+        return "s";
+    }
 }
