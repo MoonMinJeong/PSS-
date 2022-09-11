@@ -1,12 +1,19 @@
 package com.example.pss.global.security.jwt;
 
 import com.example.pss.domain.auth.domain.repository.RefreshRepository;
+import com.example.pss.global.exception.ExpiredJwtException;
+import com.example.pss.global.exception.InvalidJwtException;
 import com.example.pss.global.security.auth.AuthDetailsService;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.Claims;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 @Component
@@ -37,5 +44,28 @@ public class JwtTokenProvider {
         return null;
     }
 
+    public String resolveToken(HttpServletRequest request) {
+        String bearer = request.getHeader(jwtProperties.getJwtHeader());
+        return parseToken(bearer);
+    }
 
+    public Claims getTokenBody(String token) {
+        try {
+            return Jwts.parser().setSigningKey(jwtProperties.getJwtSecret())
+                    .parseClaimsJws(token).getBody();
+        } catch (io.jsonwebtoken.ExpiredJwtException e) {
+            throw ExpiredJwtException.EXCEPTION;
+        } catch (Exception e) {
+            throw InvalidJwtException.EXCEPTION;
+        }
+    }
+
+    public String getTokenSubject(String token) {
+        return getTokenBody(token).getSubject();
+    }
+
+    public Authentication authentication(String token) {
+        UserDetails userDetails = authDetailsService.loadUserByUsername(getTokenSubject(token));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+    }
 }
