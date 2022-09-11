@@ -7,8 +7,9 @@ spring:
             clientId: ${GITHUB_ID}
             clientSecret: ${GITHUB_SECRET}
             redirect_url: ${GITHUB_URL:http://localhost:8080/login/oauth2/code/github}
-            token_uri: https://github.com/login/oauth/access_token
-            user_info_uri: https://api.github.com/user
+            scope:
+              - user:email
+              - read:user
           google:
             clientId: ${GOOGLE_ID}
             clientSecret: ${GOOGLE_SECRET}

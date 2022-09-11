@@ -17,13 +17,5 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserSignService userSignService;
 
-    @GetMapping("/get")
-    public OAuth2AccessToken accessToken(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
-        return authorizedClient.getAccessToken();
-    }
-
-    @GetMapping("/use")
-    public OAuth2User index(@AuthenticationPrincipal OAuth2User oauth2User) {
-        return oauth2User;
-    }
+    
 }
