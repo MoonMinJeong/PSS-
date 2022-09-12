@@ -13,6 +13,7 @@ spring:
           google:
             clientId: ${GOOGLE_ID}
             clientSecret: ${GOOGLE_SECRET}
+            scope: profile,email
 
   jpa:
     hibernate:

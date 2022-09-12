@@ -39,6 +39,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+    implementation group: 'org.kohsuke', name: 'github-api', version: '1.125'
 }
 
 test {

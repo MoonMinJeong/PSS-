@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
@@ -34,7 +31,7 @@ public class User {
     @Column
     private String email;
 
-    @NotNull
+    @Enumerated(EnumType.STRING)
     @Column
     private Authority authority;
 
@@ -44,5 +41,16 @@ public class User {
         this.imageUrl = imageUrl;
         this.email = email;
         this.authority = authority;
+    }
+
+    public User update(String nickname, String imageUrl) {
+        this.nickname = nickname;
+        this.imageUrl = imageUrl;
+
+        return this;
+    }
+
+    public String getRoleKey() {
+        return this.authority.name();
     }
 }
