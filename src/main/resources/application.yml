@@ -6,7 +6,9 @@ spring:
           github:
             clientId: ${GITHUB_ID}
             clientSecret: ${GITHUB_SECRET}
-            redirect_url: ${GITHUB_URL:http://localhost:8080/login/oauth2/code/github}
+            redirect_url: ${GITHUB_URL:http://localhost:8080/auth/github/callback}
+            auth_url: ${GITHUB_AUTH_URL:https://github.com/login/oauth/authorize}
+            token_url: ${GITHUB_TOKEN_URL:https://github.com/login/oauth/access_token}
             scope:
               - user:email
               - read:user

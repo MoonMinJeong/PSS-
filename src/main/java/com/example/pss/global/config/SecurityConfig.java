@@ -3,6 +3,7 @@ package com.example.pss.global.config;
 import com.example.pss.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -28,20 +29,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .cors().and()
-                .csrf().disable()
-                .formLogin().disable()
-
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-
-                .and()
                 .authorizeRequests()
-
-                .antMatchers(HttpMethod.GET, "/user").authenticated()
-
-                .anyRequest().permitAll()
-
+                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .and()
-                .apply(new FilterConfig(jwtTokenProvider, objectMapper));
+                .oauth2Login()
+                .loginPage("/login")
+                .permitAll();
     }
 }
