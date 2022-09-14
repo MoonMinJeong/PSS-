@@ -32,7 +32,7 @@ public class ExceptionHandler extends OncePerRequestFilter {
             String errorResult = objectMapper.writeValueAsString(errorResponse);
 
             response.setStatus(errorCode.getStatus());
-                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.getWriter().write(errorResult);
         }
     }

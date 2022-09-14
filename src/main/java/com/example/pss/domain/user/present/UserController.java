@@ -5,14 +5,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
+
 @RestController
 @RequiredArgsConstructor
 public class UserController {
     private final UserSignService userSignService;
-    private String authCode;
 
     @GetMapping("/auth/github/callback")
-    public void code(String code) {
-        this.authCode = code;
+    public String code(String code) throws UnsupportedEncodingException {
+        return userSignService.getCode(code);
     }
 }
