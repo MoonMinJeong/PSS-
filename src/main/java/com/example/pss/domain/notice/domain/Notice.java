@@ -25,7 +25,7 @@ public class Notice {
     @NotNull
     @Column
     private String title;
-    
+
     @Column
     private String imageUrl;
 
