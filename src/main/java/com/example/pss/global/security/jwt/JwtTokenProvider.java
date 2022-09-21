@@ -1,9 +1,11 @@
 package com.example.pss.global.security.jwt;
 
+import com.example.pss.domain.auth.domain.Refresh;
 import com.example.pss.domain.auth.domain.repository.RefreshRepository;
 import com.example.pss.global.exception.ExpiredJwtException;
 import com.example.pss.global.exception.InvalidJwtException;
 import com.example.pss.global.security.auth.AuthDetailsService;
+import com.nimbusds.oauth2.sdk.token.RefreshToken;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,6 +24,20 @@ public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
     private final RefreshRepository refreshRepository;
+
+    public String generateRefreshToken(String id) {
+        String refreshToken = generateToken(id, "refresh", jwtProperties.getRefreshExp());
+
+        refreshRepository.save(
+                Refresh.builder()
+                        .nickname(id)
+                        .token(refreshToken)
+                        .timeToLive(jwtProperties.getRefreshExp())
+                        .build()
+        );
+
+        return refreshToken;
+    }
 
     public String generateAccessToken(String id) {
         return generateToken(id, "access", jwtProperties.getAccessExp());
