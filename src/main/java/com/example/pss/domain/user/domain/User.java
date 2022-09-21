@@ -31,7 +31,7 @@ public class User {
     @Column
     private String email;
 
-    @Enumerated(EnumType.STRING)
+    @NotNull
     @Column
     private Authority authority;
 
@@ -41,16 +41,5 @@ public class User {
         this.imageUrl = imageUrl;
         this.email = email;
         this.authority = authority;
-    }
-
-    public User update(String nickname, String imageUrl) {
-        this.nickname = nickname;
-        this.imageUrl = imageUrl;
-
-        return this;
-    }
-
-    public String getRoleKey() {
-        return this.authority.name();
     }
 }
