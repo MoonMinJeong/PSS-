@@ -6,9 +6,6 @@ spring:
           github:
             clientId: ${GITHUB_ID}
             clientSecret: ${GITHUB_SECRET}
-            redirect_url: ${GITHUB_URL:http://localhost:8080/auth/github/callback}
-            auth_url: ${GITHUB_AUTH_URL:https://github.com/login/oauth/authorize}
-            token_url: ${GITHUB_TOKEN_URL:https://github.com/login/oauth/access_token}
             scope:
               - user:email
               - read:user
@@ -16,6 +13,9 @@ spring:
             clientId: ${GOOGLE_ID}
             clientSecret: ${GOOGLE_SECRET}
             scope: profile,email
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
 
   jpa:
     hibernate:
@@ -36,11 +36,11 @@ spring:
     port: ${REDIS_PORT:6379}
 
 jwt:
-  secret-key: ${JWT_SECRET}
+  jwt-secret: ${JWT_SECRET}
   access-exp: ${JWT_ACCESS_EXP}
   refresh-exp: ${JWT_REFRESH_EXP}
-  header: ${JWT_HEADER}
-  prefix: ${JWT_PREFIX}
+  jwt-header: ${JWT_HEADER}
+  jwt-prefix: ${JWT_PREFIX}
 
 cloud:
   aws:
