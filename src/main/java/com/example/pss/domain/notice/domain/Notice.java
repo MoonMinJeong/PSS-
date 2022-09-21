@@ -65,4 +65,11 @@ public class Notice {
         this.isMine = isMine;
         this.user = user;
     }
+
+    public void UpdateNotice(String title, String content, String imageUrl, String introduction) {
+        this.title = title;
+        this.content = content;
+        this.imageUrl = imageUrl;
+        this.introduction = introduction;
+    }
 }
