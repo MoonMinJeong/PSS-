@@ -46,12 +46,15 @@ public class Notice {
     @Column
     private String introduction;
 
+    @Column
+    private boolean isMine;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @Builder
-    public Notice(String title, String content, String imageUrl, Type projectType, int viewCount, float star, String introduction, User user) {
+    public Notice(String title, String content, String imageUrl, Type projectType, int viewCount, float star, String introduction, boolean isMine, User user) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
@@ -59,6 +62,7 @@ public class Notice {
         this.projectType = projectType;
         this.viewCount = viewCount;
         this.star = star;
+        this.isMine = isMine;
         this.user = user;
     }
 }
