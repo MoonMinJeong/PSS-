@@ -29,11 +29,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                .cors().and()
+                .csrf().disable()
+
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .oauth2Login()
                 .loginPage("/login")
-                .permitAll();
+                .and()
+                .authorizeRequests()
+
+                .antMatchers(HttpMethod.POST, "/notice").authenticated()
+
+                .anyRequest().permitAll()
+
+                .and()
+                .apply(new FilterConfig(jwtTokenProvider, objectMapper));
     }
 }
