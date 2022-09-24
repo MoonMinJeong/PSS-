@@ -12,6 +12,7 @@ public enum ErrorCode {
     EXPIRED_JWT(401, "jwt-401-2", "Expired Jwt"),
 
     NOTICE_NOT_FOUND(404, "notice-404-1", "notice not found"),
+    STACK_NOT_FOUND(404, "stack-404-1", "stack not found"),
 
     USER_EXISTS(409, "USER-409-1", "User Exists"),
 
