@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class NoticeGetService {
-    private final NoticeFacade noticeFacade;
     private final NoticeRepository noticeRepository;
 
     public NoticeListResponse getListByTime() {
@@ -39,6 +38,27 @@ public class NoticeGetService {
 
     public NoticeListResponse getListByStar() {
         List<NoticeResponse> noticeResponses = noticeRepository.findAll()
+                .stream()
+                .map(notice -> NoticeResponse.builder()
+                        .title(notice.getTitle())
+                        .imageUrl(notice.getImageUrl())
+                        .introduction(notice.getIntroduction())
+                        .viewCount(notice.getViewCount())
+                        .stars(notice.getStar())
+                        .isMine(notice.isMine())
+                        .nickname(notice.getUser().getNickname())
+                        .profileImage(notice.getUser().getImageUrl())
+                        .email(notice.getUser().getEmail())
+                        .createTime(notice.getCreateTime())
+                        .build()
+                )
+                .collect(Collectors.toList());
+
+        return new NoticeListResponse(noticeResponses);
+    }
+
+    public NoticeListResponse getListByTitle(String title) {
+        List<NoticeResponse> noticeResponses = noticeRepository.findAllByTitle(title)
                 .stream()
                 .map(notice -> NoticeResponse.builder()
                         .title(notice.getTitle())

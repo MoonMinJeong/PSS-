@@ -42,6 +42,11 @@ public class NoticeController {
         return noticeGetService.getListByStar();
     }
 
+    @PostMapping("/{title}")
+    public NoticeListResponse getListByTitle(@PathVariable("title") String title) {
+        return noticeGetService.getListByTitle(title);
+    }
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") UUID uuid) {
         noticeDeleteService.delete(uuid);
