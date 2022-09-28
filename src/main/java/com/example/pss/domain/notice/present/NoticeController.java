@@ -2,8 +2,10 @@ package com.example.pss.domain.notice.present;
 
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
 import com.example.pss.domain.notice.present.dto.request.UpdateRequest;
+import com.example.pss.domain.notice.present.dto.response.NoticeListResponse;
 import com.example.pss.domain.notice.service.NoticeCreateService;
 import com.example.pss.domain.notice.service.NoticeDeleteService;
+import com.example.pss.domain.notice.service.NoticeGetService;
 import com.example.pss.domain.notice.service.NoticeUpdateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +20,7 @@ public class NoticeController {
     private final NoticeCreateService noticeCreateService;
     private final NoticeUpdateService noticeUpdateService;
     private final NoticeDeleteService noticeDeleteService;
+    private final NoticeGetService noticeGetService;
 
     @PostMapping
     public void create(@RequestBody @Valid CreateRequest request) {
@@ -27,6 +30,11 @@ public class NoticeController {
     @PatchMapping("/{id}")
     public void update(@RequestBody @Valid UpdateRequest request, @PathVariable("id") UUID uuid) {
         noticeUpdateService.update(request, uuid);
+    }
+
+    @GetMapping
+    public NoticeListResponse getList() {
+        return noticeGetService.getList();
     }
 
     @DeleteMapping("/{id}")
