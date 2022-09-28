@@ -1,6 +1,7 @@
 package com.example.pss.domain.notice.domain;
 
 import com.example.pss.domain.user.domain.User;
+import com.example.pss.global.entity.BaseTimeEntity;
 import com.example.pss.global.enums.Type;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,7 +16,7 @@ import java.util.UUID;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
-public class Notice {
+public class Notice extends BaseTimeEntity {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
