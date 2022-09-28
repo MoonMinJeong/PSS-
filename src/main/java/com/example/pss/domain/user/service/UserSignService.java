@@ -42,9 +42,23 @@ public class UserSignService {
         StringBuffer result = new StringBuffer();
 
         StringBuilder builder = new StringBuilder("https://github.com/login/oauth/access_token");
-        builder.append("?").append(URLEncoder.encode("client_id", "UTF-8")).append("=").append(githubProperties.getClientId());
-        builder.append("&").append(URLEncoder.encode("client_secret", "UTF-8")).append("=").append(githubProperties.getClientSecret());
-        builder.append("&").append(URLEncoder.encode("code", "UTF-8")).append("=").append(code);
+        builder
+                .append("?")
+                .append(URLEncoder.encode("client_id", "UTF-8"))
+                .append("=")
+                .append(githubProperties.getClientId());
+
+        builder
+                .append("&")
+                .append(URLEncoder.encode("client_secret", "UTF-8"))
+                .append("=")
+                .append(githubProperties.getClientSecret());
+
+        builder
+                .append("&")
+                .append(URLEncoder.encode("code", "UTF-8"))
+                .append("=")
+                .append(code);
 
         URL url = new URL(builder.toString());
         HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
