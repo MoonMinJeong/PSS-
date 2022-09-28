@@ -15,5 +15,11 @@ public class NoticeResponse {
     private String introduction;
     private int viewCount;
     private float stars;
+
+    private boolean isMine;
+    private String nickname;
+    private String profileImage;
+    private String email;
+
     private LocalDateTime createTime;
 }

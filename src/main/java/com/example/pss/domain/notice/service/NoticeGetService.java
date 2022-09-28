@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor
+@Service
 public class NoticeGetService {
     private final NoticeFacade noticeFacade;
     private final NoticeRepository noticeRepository;
@@ -19,7 +19,19 @@ public class NoticeGetService {
     public NoticeListResponse getListByTime() {
         List<NoticeResponse> noticeResponseList = noticeRepository.findAllDesc()
                 .stream()
-                .map(notice -> new NoticeResponse(notice.getTitle(), notice.getImageUrl(), notice.getIntroduction(), notice.getViewCount(), notice.getStar(), notice.getCreateTime()))
+                .map(notice -> NoticeResponse.builder()
+                        .title(notice.getTitle())
+                        .imageUrl(notice.getImageUrl())
+                        .introduction(notice.getIntroduction())
+                        .viewCount(notice.getViewCount())
+                        .stars(notice.getStar())
+                        .isMine(notice.isMine())
+                        .nickname(notice.getUser().getNickname())
+                        .profileImage(notice.getUser().getImageUrl())
+                        .email(notice.getUser().getEmail())
+                        .createTime(notice.getCreateTime())
+                        .build()
+                )
                 .collect(Collectors.toList());
 
         return new NoticeListResponse(noticeResponseList);
@@ -34,6 +46,10 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
+                        .isMine(notice.isMine())
+                        .nickname(notice.getUser().getNickname())
+                        .profileImage(notice.getUser().getImageUrl())
+                        .email(notice.getUser().getEmail())
                         .createTime(notice.getCreateTime())
                         .build()
                 )
