@@ -32,9 +32,14 @@ public class NoticeController {
         noticeUpdateService.update(request, uuid);
     }
 
-    @GetMapping
-    public NoticeListResponse getList() {
-        return noticeGetService.getList();
+    @GetMapping("/time")
+    public NoticeListResponse getListByTime() {
+        return noticeGetService.getListByTime();
+    }
+
+    @GetMapping("/star")
+    public NoticeListResponse getListByStar() {
+        return noticeGetService.getListByStar();
     }
 
     @DeleteMapping("/{id}")

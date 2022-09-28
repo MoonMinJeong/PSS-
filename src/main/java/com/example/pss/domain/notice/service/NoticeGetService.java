@@ -16,12 +16,29 @@ public class NoticeGetService {
     private final NoticeFacade noticeFacade;
     private final NoticeRepository noticeRepository;
 
-    public NoticeListResponse getList() {
+    public NoticeListResponse getListByTime() {
         List<NoticeResponse> noticeResponseList = noticeRepository.findAllDesc()
                 .stream()
-                .map(notice -> new NoticeResponse(notice.getTitle(), notice.getImageUrl(), notice.getContent(), notice.getViewCount(), notice.getLikes(), notice.getCreateTime()))
+                .map(notice -> new NoticeResponse(notice.getTitle(), notice.getImageUrl(), notice.getIntroduction(), notice.getViewCount(), notice.getStar(), notice.getCreateTime()))
                 .collect(Collectors.toList());
 
         return new NoticeListResponse(noticeResponseList);
+    }
+
+    public NoticeListResponse getListByStar() {
+        List<NoticeResponse> noticeResponses = noticeRepository.findAll()
+                .stream()
+                .map(notice -> NoticeResponse.builder()
+                        .title(notice.getTitle())
+                        .imageUrl(notice.getImageUrl())
+                        .introduction(notice.getIntroduction())
+                        .viewCount(notice.getViewCount())
+                        .stars(notice.getStar())
+                        .createTime(notice.getCreateTime())
+                        .build()
+                )
+                .collect(Collectors.toList());
+
+        return new NoticeListResponse(noticeResponses);
     }
 }
