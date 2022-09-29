@@ -15,8 +15,11 @@ public interface NoticeRepository extends JpaRepository<Notice, UUID> {
     List<Notice> findAllDesc();
 
     @Query("SELECT f from Notice f ORDER BY f.star DESC ")
-    List<Notice> findAll();
+    List<Notice> findAllAndOrderByStarDesc();
 
-    @Query("SELECT p from Notice p where p.title like %:title%")
-    List<Notice> findAllByTitle(String title);
+    @Query("SELECT p from Notice p where p.title like %:title% ORDER BY p.star DESC ")
+    List<Notice> findAllByTitleOrderByStarDesc(String title);
+
+    @Query("SELECT p from Notice p where p.title like %:title% ORDER BY p.createTime DESC ")
+    List<Notice> findAllByTitleOrderByCreateTimeDesc(String title);
 }

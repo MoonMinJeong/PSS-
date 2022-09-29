@@ -1,7 +1,6 @@
 package com.example.pss.domain.notice.service;
 
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
-import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.response.NoticeListResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import lombok.RequiredArgsConstructor;
@@ -37,7 +36,7 @@ public class NoticeGetService {
     }
 
     public NoticeListResponse getListByStar() {
-        List<NoticeResponse> noticeResponses = noticeRepository.findAll()
+        List<NoticeResponse> noticeResponses = noticeRepository.findAllAndOrderByStarDesc()
                 .stream()
                 .map(notice -> NoticeResponse.builder()
                         .title(notice.getTitle())
@@ -57,8 +56,28 @@ public class NoticeGetService {
         return new NoticeListResponse(noticeResponses);
     }
 
-    public NoticeListResponse getListByTitle(String title) {
-        List<NoticeResponse> noticeResponses = noticeRepository.findAllByTitle(title)
+    public NoticeListResponse getListByTitleOrderByStar(String title) {
+        List<NoticeResponse> noticeResponses = noticeRepository.findAllByTitleOrderByStarDesc(title)
+                .stream()
+                .map(notice -> NoticeResponse.builder()
+                        .title(notice.getTitle())
+                        .imageUrl(notice.getImageUrl())
+                        .introduction(notice.getIntroduction())
+                        .viewCount(notice.getViewCount())
+                        .stars(notice.getStar())
+                        .isMine(notice.isMine())
+                        .nickname(notice.getUser().getNickname())
+                        .profileImage(notice.getUser().getImageUrl())
+                        .email(notice.getUser().getEmail())
+                        .createTime(notice.getCreateTime())
+                        .build()
+                )
+                .collect(Collectors.toList());
+
+        return new NoticeListResponse(noticeResponses);
+    }
+    public NoticeListResponse getListByTitleOrderByTime(String title) {
+        List<NoticeResponse> noticeResponses = noticeRepository.findAllByTitleOrderByCreateTimeDesc(title)
                 .stream()
                 .map(notice -> NoticeResponse.builder()
                         .title(notice.getTitle())

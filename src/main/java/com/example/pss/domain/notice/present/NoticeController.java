@@ -42,9 +42,14 @@ public class NoticeController {
         return noticeGetService.getListByStar();
     }
 
-    @PostMapping("/{title}")
-    public NoticeListResponse getListByTitle(@PathVariable("title") String title) {
-        return noticeGetService.getListByTitle(title);
+    @PostMapping("/star/{title}")
+    public NoticeListResponse getListByTitleOrderByStar(@PathVariable("title") String title) {
+        return noticeGetService.getListByTitleOrderByStar(title);
+    }
+
+    @PostMapping("/time/{title}")
+    public NoticeListResponse getListByTitleOrderByTime(@PathVariable("title") String title) {
+        return noticeGetService.getListByTitleOrderByTime(title);
     }
 
     @DeleteMapping("/{id}")

@@ -5,21 +5,20 @@ import com.example.pss.domain.auth.domain.repository.RefreshRepository;
 import com.example.pss.global.exception.ExpiredJwtException;
 import com.example.pss.global.exception.InvalidJwtException;
 import com.example.pss.global.security.auth.AuthDetailsService;
-import com.nimbusds.oauth2.sdk.token.RefreshToken;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.Claims;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
-@Component
 @RequiredArgsConstructor
+@Component
 public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
     private final AuthDetailsService authDetailsService;
@@ -54,7 +53,7 @@ public class JwtTokenProvider {
     }
 
     public String parseToken(String bearerToken) {
-        if(bearerToken!=null && bearerToken.startsWith(jwtProperties.getJwtPrefix())) {
+        if (bearerToken != null && bearerToken.startsWith(jwtProperties.getJwtPrefix())) {
             return bearerToken.replace(jwtProperties.getJwtPrefix(), "");
         }
         return null;
