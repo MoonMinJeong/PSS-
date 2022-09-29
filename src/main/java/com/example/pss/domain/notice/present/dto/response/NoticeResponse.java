@@ -13,8 +13,10 @@ public class NoticeResponse {
     private String title;
     private String imageUrl;
     private String introduction;
+
     private int viewCount;
     private float stars;
+    private int likes;
 
     private boolean isMine;
     private String nickname;
