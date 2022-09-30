@@ -1,5 +1,6 @@
 package com.example.pss.domain.notice.service;
 
+import com.example.pss.domain.like.domain.repository.LikeRepository;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.present.dto.response.NoticeListResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
@@ -13,6 +14,7 @@ import java.util.stream.Collectors;
 @Service
 public class NoticeGetService {
     private final NoticeRepository noticeRepository;
+    private final LikeRepository likeRepository;
 
     public NoticeListResponse getListByTime() {
         List<NoticeResponse> noticeResponseList = noticeRepository.findAllDesc()
@@ -23,7 +25,7 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(notice.getLikes())
+                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
@@ -45,7 +47,7 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(notice.getLikes())
+                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
@@ -67,7 +69,7 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(notice.getLikes())
+                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
@@ -88,7 +90,7 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(notice.getLikes())
+                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
