@@ -12,12 +12,12 @@ import java.util.UUID;
 public class LikeController {
     private final LikeService likeService;
 
-    @PatchMapping("/{noticeId}")
+    @PostMapping("/{noticeId}")
     public void updateLike(@PathVariable("noticeId") UUID id) {
         likeService.likeTopic(id);
     }
 
-    @PutMapping("/{noticeId}")
+    @PatchMapping("/{noticeId}")
     public void deleteLike(@PathVariable("noticeId") UUID id) {
         likeService.deleteLikeTopic(id);
     }

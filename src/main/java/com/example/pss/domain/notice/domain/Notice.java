@@ -57,11 +57,11 @@ public class Notice extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "like", cascade = CascadeType.REMOVE)
-    private List<Like> likes = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notice", cascade = CascadeType.REMOVE)
+    private final List<Like> likes = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "stack", cascade = CascadeType.REMOVE)
-    private List<Stack> stacks = new ArrayList<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "notice", cascade = CascadeType.REMOVE)
+    private final List<Stack> stacks = new ArrayList<>();
 
     @Builder
     public Notice(String title, String content, String imageUrl, Type projectType, int viewCount, float star, String introduction, boolean isMine, User user) {

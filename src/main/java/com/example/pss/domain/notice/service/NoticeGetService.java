@@ -92,7 +92,6 @@ public class NoticeGetService {
     }
 
     public NoticeListResponse getListByTitleOrderByTime(String title) {
-
         int likes = likeRepository.findAllByLikeCheckTrue().size();
 
         List<NoticeResponse> noticeResponses = noticeRepository.findAllByTitleOrderByCreateTimeDesc(title)
