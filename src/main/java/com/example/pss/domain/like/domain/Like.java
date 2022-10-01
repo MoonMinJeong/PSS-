@@ -1,6 +1,7 @@
 package com.example.pss.domain.like.domain;
 
 import com.example.pss.domain.notice.domain.Notice;
+import com.example.pss.domain.user.domain.User;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,19 +18,24 @@ public class Like {
     private Long id;
 
     @Column
-    private int likes;
+    private boolean likeCheck;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_id")
     private Notice notice;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @Builder
-    public Like(int likes, Notice notice) {
-        this.likes = likes;
+    public Like(boolean likeCheck, Notice notice, User user) {
+        this.likeCheck = likeCheck;
         this.notice = notice;
+        this.user = user;
     }
 
-    public void updateLikes(int likes) {
-        this.likes = likes;
+    public void likeUpdate(boolean likeCheck) {
+        this.likeCheck = likeCheck;
     }
 }
