@@ -15,6 +15,7 @@ public enum ErrorCode {
     STACK_NOT_FOUND(404, "stack-404-1", "stack not found"),
 
     USER_EXISTS(409, "USER-409-1", "User Exists"),
+    LIKE_EXISTS(409, "LIKE-409-1", "Like Exists"),
 
     USER_NOTFOUND_EXCEPTION(404, "user-404-1", "user not found");
 
