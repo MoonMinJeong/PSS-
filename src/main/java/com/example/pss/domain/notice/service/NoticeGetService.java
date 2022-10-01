@@ -17,6 +17,8 @@ public class NoticeGetService {
     private final LikeRepository likeRepository;
 
     public NoticeListResponse getListByTime() {
+        int likes = likeRepository.findAllByLikeCheckTrue().size();
+
         List<NoticeResponse> noticeResponseList = noticeRepository.findAllDesc()
                 .stream()
                 .map(notice -> NoticeResponse.builder()
@@ -25,11 +27,12 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
+                        .likes(likes)
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
                         .email(notice.getUser().getEmail())
+                        .stacks(notice.getStacks())
                         .createTime(notice.getCreateTime())
                         .build()
                 )
@@ -39,6 +42,8 @@ public class NoticeGetService {
     }
 
     public NoticeListResponse getListByStar() {
+        int likes = likeRepository.findAllByLikeCheckTrue().size();
+
         List<NoticeResponse> noticeResponses = noticeRepository.findAllAndOrderByStarDesc()
                 .stream()
                 .map(notice -> NoticeResponse.builder()
@@ -47,11 +52,12 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
+                        .likes(likes)
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
                         .email(notice.getUser().getEmail())
+                        .stacks(notice.getStacks())
                         .createTime(notice.getCreateTime())
                         .build()
                 )
@@ -61,6 +67,8 @@ public class NoticeGetService {
     }
 
     public NoticeListResponse getListByTitleOrderByStar(String title) {
+        int likes = likeRepository.findAllByLikeCheckTrue().size();
+
         List<NoticeResponse> noticeResponses = noticeRepository.findAllByTitleOrderByStarDesc(title)
                 .stream()
                 .map(notice -> NoticeResponse.builder()
@@ -69,11 +77,12 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
+                        .likes(likes)
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
                         .email(notice.getUser().getEmail())
+                        .stacks(notice.getStacks())
                         .createTime(notice.getCreateTime())
                         .build()
                 )
@@ -81,7 +90,11 @@ public class NoticeGetService {
 
         return new NoticeListResponse(noticeResponses);
     }
+
     public NoticeListResponse getListByTitleOrderByTime(String title) {
+
+        int likes = likeRepository.findAllByLikeCheckTrue().size();
+
         List<NoticeResponse> noticeResponses = noticeRepository.findAllByTitleOrderByCreateTimeDesc(title)
                 .stream()
                 .map(notice -> NoticeResponse.builder()
@@ -90,11 +103,12 @@ public class NoticeGetService {
                         .introduction(notice.getIntroduction())
                         .viewCount(notice.getViewCount())
                         .stars(notice.getStar())
-                        .likes(likeRepository.findByNotice_Id(notice.getId()).get().getLikes())
+                        .likes(likes)
                         .isMine(notice.isMine())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
                         .email(notice.getUser().getEmail())
+                        .stacks(notice.getStacks())
                         .createTime(notice.getCreateTime())
                         .build()
                 )

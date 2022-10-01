@@ -1,10 +1,12 @@
 package com.example.pss.domain.notice.present.dto.response;
 
+import com.example.pss.domain.stack.domain.Stack;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Builder
@@ -22,6 +24,8 @@ public class NoticeResponse {
     private String nickname;
     private String profileImage;
     private String email;
+
+    private List<Stack> stacks;
 
     private LocalDateTime createTime;
 }
