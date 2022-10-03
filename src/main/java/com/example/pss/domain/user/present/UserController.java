@@ -17,4 +17,9 @@ public class UserController {
     public TokenResponse code(String code) throws IOException, org.json.simple.parser.ParseException {
          return userSignService.getCode(code);
     }
+
+    @GetMapping("/login/oauth2/code/google")
+    public String get(String code) {
+        return code;
+    }
 }
