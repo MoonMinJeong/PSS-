@@ -3,11 +3,13 @@ package com.example.pss.domain.star.service;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
+import com.example.pss.domain.star.exception.StarNotFoundException;
 import com.example.pss.domain.star.present.dto.StarRequest;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -18,7 +20,7 @@ public class StarService {
     private final UserFacade userFacade;
     private final NoticeFacade noticeFacade;
 
-    public void create(StarRequest request, UUID noticeId) {
+    public void create(UUID noticeId, StarRequest request) {
         User user = userFacade.getCurrentUser();
 
         starRepository.save(
@@ -28,5 +30,15 @@ public class StarService {
                         .notice(noticeFacade.findById(noticeId))
                         .build()
         );
+    }
+
+    @Transactional
+    public void update(UUID noticeId, StarRequest request) {
+        User user = userFacade.getCurrentUser();
+
+        Star star = starRepository.findByNoticeAndUser(noticeFacade.findById(noticeId), user)
+                .orElseThrow(() -> StarNotFoundException.EXCEPTION);
+
+        star.update(request.getStars());
     }
 }

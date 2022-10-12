@@ -35,4 +35,8 @@ public class Star {
         this.user = user;
         this.notice = notice;
     }
+
+    public void update(float stars) {
+        this.stars = stars;
+    }
 }

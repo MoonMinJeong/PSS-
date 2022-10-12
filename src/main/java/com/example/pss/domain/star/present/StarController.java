@@ -16,6 +16,11 @@ public class StarController {
 
     @PostMapping("/{noticeId}")
     public void create(@PathVariable("noticeId") UUID noticeId, @RequestBody @Valid StarRequest request) {
-        service.create(request, noticeId);
+        service.create(noticeId, request);
+    }
+
+    @PutMapping("/{noticeId}")
+    public void update(@PathVariable("noticeId") UUID noticeId, @RequestBody @Valid StarRequest request) {
+        service.update(noticeId, request);
     }
 }
