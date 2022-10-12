@@ -2,7 +2,7 @@ package com.example.pss.domain.notice.present;
 
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
 import com.example.pss.domain.notice.present.dto.request.UpdateRequest;
-import com.example.pss.domain.notice.present.dto.response.NoticeListResponse;
+import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import com.example.pss.domain.notice.service.NoticeCreateService;
 import com.example.pss.domain.notice.service.NoticeDeleteService;
 import com.example.pss.domain.notice.service.NoticeGetService;
@@ -33,22 +33,22 @@ public class NoticeController {
     }
 
     @GetMapping("/time")
-    public NoticeListResponse getListByTime() {
+    public NoticeResponse getListByTime() {
         return noticeGetService.getListByTime();
     }
 
     @GetMapping("/star")
-    public NoticeListResponse getListByStar() {
+    public NoticeResponse getListByStar() {
         return noticeGetService.getListByStar();
     }
 
     @PostMapping("/star/{title}")
-    public NoticeListResponse getListByTitleOrderByStar(@PathVariable("title") String title) {
+    public NoticeResponse getListByTitleOrderByStar(@PathVariable("title") String title) {
         return noticeGetService.getListByTitleOrderByStar(title);
     }
 
     @PostMapping("/time/{title}")
-    public NoticeListResponse getListByTitleOrderByTime(@PathVariable("title") String title) {
+    public NoticeResponse getListByTitleOrderByTime(@PathVariable("title") String title) {
         return noticeGetService.getListByTitleOrderByTime(title);
     }
 
