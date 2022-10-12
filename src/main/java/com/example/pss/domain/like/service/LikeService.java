@@ -21,7 +21,6 @@ public class LikeService {
     private final UserFacade userFacade;
     private final NoticeFacade noticeFacade;
 
-    @Transactional
     public void likeTopic(UUID noticeId) {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
@@ -34,7 +33,6 @@ public class LikeService {
                 Like.builder()
                         .user(user)
                         .notice(notice)
-                        .likeCheck(true)
                         .build()
         );
     }
@@ -47,6 +45,6 @@ public class LikeService {
         Like like = likeRepository.findByUserAndNotice(user, notice)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        like.likeUpdate(false);
+        likeRepository.delete(like);
     }
 }

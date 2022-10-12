@@ -11,14 +11,12 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_like")
 @Entity
 public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
-    private boolean likeCheck;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_id")
@@ -29,13 +27,8 @@ public class Like {
     private User user;
 
     @Builder
-    public Like(boolean likeCheck, Notice notice, User user) {
-        this.likeCheck = likeCheck;
+    public Like(Notice notice, User user) {
         this.notice = notice;
         this.user = user;
-    }
-
-    public void likeUpdate(boolean likeCheck) {
-        this.likeCheck = likeCheck;
     }
 }

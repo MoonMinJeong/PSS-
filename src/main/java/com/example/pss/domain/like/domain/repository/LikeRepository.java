@@ -15,6 +15,5 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
 
     Optional<Like> findByUserAndNotice(User user, Notice notice);
 
-    @Query("SELECT l from Like l where l.likeCheck=true")
-    List<Like> findAllByLikeCheckTrue();
+    List<Like> findAllByNotice(Notice notice);
 }
