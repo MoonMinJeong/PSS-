@@ -10,6 +10,7 @@ import javax.persistence.*;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_stack")
 @Entity
 public class Stack {
     @Id
