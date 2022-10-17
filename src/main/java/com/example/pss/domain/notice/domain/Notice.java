@@ -20,7 +20,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "notice")
+@Table(name = "tbl_notice")
 @Entity
 public class Notice extends BaseTimeEntity {
     @Id
@@ -42,6 +42,9 @@ public class Notice extends BaseTimeEntity {
 
     @Column
     private Type projectType;
+
+    @Column
+    private float star;
 
     @Column
     private int viewCount;
@@ -66,12 +69,13 @@ public class Notice extends BaseTimeEntity {
     private List<Stack> stacks = new ArrayList<>();
 
     @Builder
-    public Notice(String title, String content, String imageUrl, Type projectType, int viewCount, String introduction, boolean isMine, User user) {
+    public Notice(String title, String content, String imageUrl, Type projectType, float star, int viewCount, String introduction, boolean isMine, User user) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
         this.introduction = introduction;
         this.projectType = projectType;
+        this.star = star;
         this.viewCount = viewCount;
         this.isMine = isMine;
         this.user = user;
@@ -86,5 +90,9 @@ public class Notice extends BaseTimeEntity {
 
     public void UpViewCount() {
         this.viewCount++;
+    }
+
+    public void updateStar(float star) {
+        this.star = star;
     }
 }

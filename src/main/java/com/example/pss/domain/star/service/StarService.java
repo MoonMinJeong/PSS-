@@ -1,5 +1,6 @@
 package com.example.pss.domain.star.service;
 
+import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
@@ -22,12 +23,13 @@ public class StarService {
 
     public void create(UUID noticeId, StarRequest request) {
         User user = userFacade.getCurrentUser();
+        Notice notice = noticeFacade.findById(noticeId);
 
         starRepository.save(
                 Star.builder()
                         .stars(request.getStars())
                         .user(user)
-                        .notice(noticeFacade.findById(noticeId))
+                        .notice(notice)
                         .build()
         );
     }

@@ -14,6 +14,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_user")
 @Entity
 public class User extends BaseTimeEntity {
     @Id @GeneratedValue(generator = "uuid2")

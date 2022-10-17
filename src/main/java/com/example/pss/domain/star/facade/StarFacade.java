@@ -21,6 +21,7 @@ public class StarFacade {
             result = result + stars.get(i).getStars();
         }
 
+        notice.updateStar(result);
         return result;
     }
 }

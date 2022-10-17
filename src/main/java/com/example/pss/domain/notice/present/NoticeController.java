@@ -2,11 +2,9 @@ package com.example.pss.domain.notice.present;
 
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
 import com.example.pss.domain.notice.present.dto.request.UpdateRequest;
+import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
-import com.example.pss.domain.notice.service.NoticeCreateService;
-import com.example.pss.domain.notice.service.NoticeDeleteService;
-import com.example.pss.domain.notice.service.NoticeGetService;
-import com.example.pss.domain.notice.service.NoticeUpdateService;
+import com.example.pss.domain.notice.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +19,7 @@ public class NoticeController {
     private final NoticeUpdateService noticeUpdateService;
     private final NoticeDeleteService noticeDeleteService;
     private final NoticeGetService noticeGetService;
+    private final NoticeIntroService noticeIntroService;
 
     @PostMapping
     public void create(@RequestBody @Valid CreateRequest request) {
@@ -30,6 +29,15 @@ public class NoticeController {
     @PatchMapping("/{id}")
     public void update(@RequestBody @Valid UpdateRequest request, @PathVariable("id") UUID uuid) {
         noticeUpdateService.update(request, uuid);
+    }
+    @GetMapping("/{id}")
+    public NoticeOneResponse getOne(@PathVariable("id") UUID noticeId) {
+        return noticeIntroService.getNotice(noticeId);
+    }
+
+    @GetMapping
+    public NoticeResponse getAll() {
+        return noticeGetService.getAll();
     }
 
     @GetMapping("/time")

@@ -16,6 +16,7 @@ public class NoticeResponse {
     private List<NoticeDto> noticeList;
 
     @Getter
+    @AllArgsConstructor
     @Builder
     public static class NoticeDto {
         private String title;
