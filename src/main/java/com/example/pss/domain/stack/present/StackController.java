@@ -1,6 +1,7 @@
 package com.example.pss.domain.stack.present;
 
 import com.example.pss.domain.stack.domain.Stack;
+import com.example.pss.domain.stack.present.dto.StackRequest;
 import com.example.pss.domain.stack.service.StackService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,8 +16,8 @@ public class StackController {
     private final StackService service;
 
     @PostMapping("/{noticeId}")
-    public Stack create(@RequestBody @Valid String techName, @PathVariable("noticeId") UUID noticeId) {
-        return service.createStack(techName, noticeId);
+    public void create(@PathVariable("noticeId") UUID noticeId, @RequestBody @Valid StackRequest request) {
+        service.createStack(request, noticeId);
     }
 
     @DeleteMapping("/{id}")

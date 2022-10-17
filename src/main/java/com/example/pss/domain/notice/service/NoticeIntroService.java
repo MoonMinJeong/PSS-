@@ -5,6 +5,7 @@ import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
+import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
 import com.example.pss.domain.star.exception.StarNotFoundException;
@@ -12,6 +13,7 @@ import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -20,10 +22,12 @@ import java.util.UUID;
 public class NoticeIntroService {
     private final NoticeFacade noticeFacade;
     private final NoticeRepository noticeRepository;
+    private final StackFacade stackFacade;
     private final StarRepository starRepository;
     private final UserFacade userFacade;
     private final StackRepository stackRepository;
 
+    @Transactional
     public NoticeOneResponse getNotice(UUID noticeId) {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
@@ -31,7 +35,10 @@ public class NoticeIntroService {
         Star star = starRepository.findByNoticeAndUser(notice, user)
                 .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
+        notice.UpViewCount();
+
         return NoticeOneResponse.builder()
+                .noticeId(notice.getId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
                 .createTime(notice.getCreateTime())
@@ -39,7 +46,7 @@ public class NoticeIntroService {
                 .email(notice.getUser().getEmail())
                 .viewCount(notice.getViewCount())
                 .stars(star.getStars())
-                .stacks(stackRepository.findAllByNotice(notice))
+                .stacks(stackFacade.findAllByNotice(notice))
                 .build();
     }
 }

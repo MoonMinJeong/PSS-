@@ -4,6 +4,7 @@ import com.example.pss.domain.like.domain.repository.LikeRepository;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
+import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
@@ -19,6 +20,7 @@ public class NoticeGetService {
     private final NoticeRepository noticeRepository;
     private final LikeRepository likeRepository;
     private final StackRepository stackRepository;
+    private final StackFacade stackFacade;
     private final StarFacade starFacade;
     private final UserFacade userFacade;
 
@@ -29,6 +31,7 @@ public class NoticeGetService {
                 .stream()
                 .map(notice ->
                         NoticeResponse.NoticeDto.builder()
+                                .noticeId(notice.getId())
                                 .title(notice.getTitle())
                                 .imageUrl(notice.getImageUrl())
                                 .introduction(notice.getIntroduction())
@@ -39,7 +42,7 @@ public class NoticeGetService {
                                 .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                                 .nickname(notice.getUser().getNickname())
                                 .profileImage(notice.getUser().getImageUrl())
-                                .stacks(stackRepository.findAllByNotice(notice))
+                                .stacks(stackFacade.findAllByNotice(notice))
                                 .createTime(notice.getCreateTime())
                                 .build()
                 )
@@ -56,6 +59,7 @@ public class NoticeGetService {
                 .stream()
                 .map(notice ->
                         NoticeResponse.NoticeDto.builder()
+                                .noticeId(notice.getId())
                         .title(notice.getTitle())
                         .imageUrl(notice.getImageUrl())
                         .introduction(notice.getIntroduction())
@@ -66,7 +70,7 @@ public class NoticeGetService {
                         .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
-                        .stacks(stackRepository.findAllByNotice(notice))
+                        .stacks(stackFacade.findAllByNotice(notice))
                         .createTime(notice.getCreateTime())
                         .build()
                 )
@@ -81,6 +85,7 @@ public class NoticeGetService {
         List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllAndOrderByStarDesc()
                 .stream()
                 .map(notice -> NoticeResponse.NoticeDto.builder()
+                        .noticeId(notice.getId())
                         .title(notice.getTitle())
                         .imageUrl(notice.getImageUrl())
                         .introduction(notice.getIntroduction())
@@ -91,7 +96,7 @@ public class NoticeGetService {
                         .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
-                        .stacks(stackRepository.findAllByNotice(notice))
+                        .stacks(stackFacade.findAllByNotice(notice))
                         .createTime(notice.getCreateTime())
                         .build()
                 )
@@ -106,6 +111,7 @@ public class NoticeGetService {
         List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByTitleOrderByStarDesc(title)
                 .stream()
                 .map(notice -> NoticeResponse.NoticeDto.builder()
+                        .noticeId(notice.getId())
                         .title(notice.getTitle())
                         .imageUrl(notice.getImageUrl())
                         .introduction(notice.getIntroduction())
@@ -116,7 +122,7 @@ public class NoticeGetService {
                         .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
-                        .stacks(stackRepository.findAllByNotice(notice))
+                        .stacks(stackFacade.findAllByNotice(notice))
                         .createTime(notice.getCreateTime())
                         .build()
                 )
@@ -131,6 +137,7 @@ public class NoticeGetService {
         List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByTitleOrderByCreateTimeDesc(title)
                 .stream()
                 .map(notice -> NoticeResponse.NoticeDto.builder()
+                        .noticeId(notice.getId())
                         .title(notice.getTitle())
                         .imageUrl(notice.getImageUrl())
                         .introduction(notice.getIntroduction())
@@ -141,7 +148,7 @@ public class NoticeGetService {
                         .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                         .nickname(notice.getUser().getNickname())
                         .profileImage(notice.getUser().getImageUrl())
-                        .stacks(stackRepository.findAllByNotice(notice))
+                        .stacks(stackFacade.findAllByNotice(notice))
                         .createTime(notice.getCreateTime())
                         .build()
                 )

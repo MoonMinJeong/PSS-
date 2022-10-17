@@ -7,6 +7,7 @@ import com.example.pss.domain.stack.exception.StackNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -19,7 +20,15 @@ public class StackFacade {
                 .orElseThrow(() -> StackNotFoundException.EXCEPTION);
     }
 
-    public List<Stack> findAllByNotice(Notice notice) {
-        return stackRepository.findAllByNotice(notice);
+    public List<String> findAllByNotice(Notice notice) {
+        List<String> list = new ArrayList<>();
+
+        for(int i = 0; i<stackRepository.findAllByNotice(notice).size(); i++) {
+            list.add(stackRepository.findAllByNotice(notice)
+                    .get(i)
+                    .getTechName());
+        }
+
+        return list;
     }
 }

@@ -8,6 +8,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Builder
@@ -19,10 +20,11 @@ public class NoticeResponse {
     @AllArgsConstructor
     @Builder
     public static class NoticeDto {
+        private UUID noticeId;
         private String title;
         private String imageUrl;
         private String introduction;
-        private List<Stack> stacks;
+        private List<String> stacks;
 
         private int viewCount;
         private float stars;
@@ -37,9 +39,10 @@ public class NoticeResponse {
 
         @QueryProjection
         public NoticeDto(
-                String title, String imageUrl, String introduction, int viewCount,
+                UUID noticeId, String title, String imageUrl, String introduction, int viewCount,
                 float stars, int likes, boolean isMine, boolean isLike, String nickname,
-                String profileImage, String email, List<Stack> stacks, LocalDateTime createTime) {
+                String profileImage, String email, List<String> stacks, LocalDateTime createTime) {
+            this.noticeId = noticeId;
             this.title = title;
             this.imageUrl = imageUrl;
             this.introduction = introduction;
