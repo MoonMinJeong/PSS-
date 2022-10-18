@@ -40,6 +40,7 @@ public class NoticeIntroService {
                 .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
         notice.UpViewCount();
+        
 
         List<CommentResponse> list = commentRepository.getByNotice(noticeId)
                 .stream()
