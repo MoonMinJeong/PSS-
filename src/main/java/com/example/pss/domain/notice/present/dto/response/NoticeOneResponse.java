@@ -1,5 +1,6 @@
 package com.example.pss.domain.notice.present.dto.response;
 
+import com.example.pss.domain.comment.present.dto.response.CommentResponse;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
 import lombok.AllArgsConstructor;
@@ -24,4 +25,5 @@ public class NoticeOneResponse {
     private String email;
     private String profileImage;
     private LocalDateTime createTime;
+    private List<CommentResponse> list;
 }
