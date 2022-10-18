@@ -1,6 +1,7 @@
 package com.example.pss.domain.notice.present.dto.response;
 
 import com.example.pss.domain.stack.domain.Stack;
+import com.example.pss.domain.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class NoticeOneResponse {
     private String content;
     private float stars;
     private List<String> stacks;
-    private int viewCount;
+    private Integer viewCount;
     private String email;
     private String profileImage;
     private LocalDateTime createTime;

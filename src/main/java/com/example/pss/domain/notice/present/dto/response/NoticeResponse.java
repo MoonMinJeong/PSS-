@@ -26,9 +26,9 @@ public class NoticeResponse {
         private String introduction;
         private List<String> stacks;
 
-        private int viewCount;
+        private Integer viewCount;
         private float stars;
-        private int likes;
+        private Integer likes;
 
         private boolean isMine;
         private boolean isLike;
@@ -39,8 +39,8 @@ public class NoticeResponse {
 
         @QueryProjection
         public NoticeDto(
-                UUID noticeId, String title, String imageUrl, String introduction, int viewCount,
-                float stars, int likes, boolean isMine, boolean isLike, String nickname,
+                UUID noticeId, String title, String imageUrl, String introduction, Integer viewCount,
+                float stars, Integer likes, boolean isMine, boolean isLike, String nickname,
                 String profileImage, String email, List<String> stacks, LocalDateTime createTime) {
             this.noticeId = noticeId;
             this.title = title;
@@ -52,6 +52,9 @@ public class NoticeResponse {
             this.likes = likes;
             this.stars = stars;
             this.viewCount = viewCount;
+            this.isLike = isLike;
+            this.isMine = isMine;
+            this.createTime = createTime;
         }
     }
 }
