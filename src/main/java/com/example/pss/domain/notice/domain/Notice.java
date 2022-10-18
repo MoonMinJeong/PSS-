@@ -1,8 +1,5 @@
 package com.example.pss.domain.notice.domain;
 
-import com.example.pss.domain.like.domain.Like;
-import com.example.pss.domain.stack.domain.Stack;
-import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.global.entity.BaseTimeEntity;
 import com.example.pss.global.enums.Type;
@@ -14,8 +11,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -58,15 +53,6 @@ public class Notice extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
-    @OneToMany(mappedBy = "notice")
-    private List<Like> likes = new ArrayList<>();
-
-    @OneToMany(mappedBy = "notice")
-    private List<Star> stars = new ArrayList<>();
-
-    @OneToMany(mappedBy = "notice")
-    private List<Stack> stacks = new ArrayList<>();
 
     @Builder
     public Notice(String title, String content, String imageUrl, Type projectType, float star, Integer viewCount, String introduction, boolean isMine, User user) {

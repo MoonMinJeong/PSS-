@@ -14,6 +14,7 @@ public enum ErrorCode {
     NOTICE_NOT_FOUND(404, "notice-404-1", "notice not found"),
     STACK_NOT_FOUND(404, "stack-404-1", "stack not found"),
     STAR_NOT_FOUND(404, "star-404-1", "star not found"),
+    COMMENT_NOT_FOUND(404, "comment-404-1", "comment not found"),
 
     USER_EXISTS(409, "USER-409-1", "User Exists"),
     LIKE_EXISTS(409, "LIKE-409-1", "Like Exists"),
