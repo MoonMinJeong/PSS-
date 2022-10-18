@@ -1,5 +1,8 @@
 package com.example.pss.domain.notice.service;
 
+import com.example.pss.domain.comment.domain.repository.CommentRepository;
+import com.example.pss.domain.comment.present.dto.response.CommentListResponse;
+import com.example.pss.domain.comment.present.dto.response.CommentResponse;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.facade.NoticeFacade;
@@ -15,17 +18,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class NoticeIntroService {
     private final NoticeFacade noticeFacade;
-    private final NoticeRepository noticeRepository;
     private final StackFacade stackFacade;
     private final StarRepository starRepository;
     private final UserFacade userFacade;
-    private final StackRepository stackRepository;
+    private final CommentRepository commentRepository;
 
     @Transactional
     public NoticeOneResponse getNotice(UUID noticeId) {
@@ -37,6 +41,17 @@ public class NoticeIntroService {
 
         notice.UpViewCount();
 
+        List<CommentResponse> list = commentRepository.getByNotice(noticeId)
+                .stream()
+                .map(comment -> new CommentResponse(
+                        comment.getUser().getNickname(),
+                        comment.getContent(),
+                        comment.getUser().getImageUrl(),
+                        comment.isMine(),
+                        commentRepository.getByComment(comment.getId())
+                ))
+                .collect(Collectors.toList());
+
         return NoticeOneResponse.builder()
                 .noticeId(notice.getId())
                 .title(notice.getTitle())
@@ -47,6 +62,7 @@ public class NoticeIntroService {
                 .viewCount(notice.getViewCount())
                 .stars(star.getStars())
                 .stacks(stackFacade.findAllByNotice(notice))
+                .list(list)
                 .build();
     }
 }
