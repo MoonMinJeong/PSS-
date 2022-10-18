@@ -26,6 +26,7 @@ public class ReplyService {
                         .content(request.getContent())
                         .user(user)
                         .comment(comment)
+                        .isMine(true)
                         .build()
         );
     }
