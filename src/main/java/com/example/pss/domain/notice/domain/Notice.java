@@ -47,7 +47,7 @@ public class Notice extends BaseTimeEntity {
     private float star;
 
     @Column
-    private int viewCount;
+    private Integer viewCount;
 
     @Column
     private String introduction;
@@ -59,17 +59,17 @@ public class Notice extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "notice")
     private List<Like> likes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "notice")
     private List<Star> stars = new ArrayList<>();
 
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "notice")
     private List<Stack> stacks = new ArrayList<>();
 
     @Builder
-    public Notice(String title, String content, String imageUrl, Type projectType, float star, int viewCount, String introduction, boolean isMine, User user) {
+    public Notice(String title, String content, String imageUrl, Type projectType, float star, Integer viewCount, String introduction, boolean isMine, User user) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
