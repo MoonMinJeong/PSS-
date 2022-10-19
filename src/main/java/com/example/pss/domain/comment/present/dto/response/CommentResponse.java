@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Builder
 public class CommentResponse {
     private final String nickname;
     private final String content;

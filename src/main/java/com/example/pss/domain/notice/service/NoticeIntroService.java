@@ -1,13 +1,10 @@
 package com.example.pss.domain.notice.service;
 
 import com.example.pss.domain.comment.domain.repository.CommentRepository;
-import com.example.pss.domain.comment.present.dto.response.CommentListResponse;
 import com.example.pss.domain.comment.present.dto.response.CommentResponse;
 import com.example.pss.domain.notice.domain.Notice;
-import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
-import com.example.pss.domain.stack.domain.repository.StackRepository;
 import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
@@ -40,16 +37,15 @@ public class NoticeIntroService {
                 .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
         notice.UpViewCount();
-        
 
-        List<CommentResponse> list = commentRepository.getByNotice(noticeId)
+        List<CommentResponse> list = commentRepository.findCommentsById(noticeId)
                 .stream()
                 .map(comment -> new CommentResponse(
                         comment.getUser().getNickname(),
                         comment.getContent(),
                         comment.getUser().getImageUrl(),
                         comment.isMine(),
-                        commentRepository.getByComment(comment.getId())
+                        commentRepository.findRepliesById(comment.getId())
                 ))
                 .collect(Collectors.toList());
 

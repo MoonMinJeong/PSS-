@@ -7,6 +7,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CommentCustom {
-    List<Comment> getByNotice(UUID noticeId);
-    List<Reply> getByComment(Long commentId);
+    List<Comment> findCommentsById(UUID noticeId);
+    List<Reply> findRepliesById(Long commentId);
 }

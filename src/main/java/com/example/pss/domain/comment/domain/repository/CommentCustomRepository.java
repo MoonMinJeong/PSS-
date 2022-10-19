@@ -17,7 +17,7 @@ public class CommentCustomRepository implements CommentCustom{
     private final JPAQueryFactory query;
 
     @Override
-    public List<Comment> getByNotice(UUID noticeId) {
+    public List<Comment> findCommentsById(UUID noticeId) {
         return query.selectFrom(comment)
                 .leftJoin(comment.notice, notice)
                 .where(notice.id.eq(noticeId))
@@ -25,7 +25,7 @@ public class CommentCustomRepository implements CommentCustom{
     }
 
     @Override
-    public List<Reply> getByComment(Long commentId) {
+    public List<Reply> findRepliesById(Long commentId) {
         return query.selectFrom(reply)
                 .leftJoin(reply.comment, comment)
                 .where(comment.id.eq(commentId))
