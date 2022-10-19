@@ -18,10 +18,9 @@ public class StarFacade {
         List<Star> stars = starRepository.findAllByNotice(notice);
 
         for(int i=0; i<stars.size(); i++) {
-            result = result + stars.get(i).getStars();
+            result = (result + stars.get(i).getStars()) / (i+1);
         }
 
-        notice.updateStar(result);
         return result;
     }
 }

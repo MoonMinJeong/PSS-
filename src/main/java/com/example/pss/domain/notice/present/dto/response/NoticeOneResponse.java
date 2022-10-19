@@ -19,10 +19,19 @@ public class NoticeOneResponse {
     private UUID noticeId;
     private String title;
     private String content;
+
+    private String imageUrl;
+
     private float stars;
     private List<String> stacks;
     private Integer viewCount;
-    private String email;
+
+    private boolean isMine;
+    private boolean isLike;
+    private boolean isStar;
+
+    private float myStar;
+
     private String profileImage;
     private LocalDateTime createTime;
     private List<CommentResponse> list;

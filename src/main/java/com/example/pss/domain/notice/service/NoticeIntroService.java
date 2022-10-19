@@ -2,13 +2,13 @@ package com.example.pss.domain.notice.service;
 
 import com.example.pss.domain.comment.domain.repository.CommentRepository;
 import com.example.pss.domain.comment.present.dto.response.CommentResponse;
+import com.example.pss.domain.like.domain.repository.LikeRepository;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
 import com.example.pss.domain.stack.facade.StackFacade;
-import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
-import com.example.pss.domain.star.exception.StarNotFoundException;
+import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
@@ -24,17 +24,16 @@ import java.util.stream.Collectors;
 public class NoticeIntroService {
     private final NoticeFacade noticeFacade;
     private final StackFacade stackFacade;
+    private final StarFacade starFacade;
     private final StarRepository starRepository;
     private final UserFacade userFacade;
     private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public NoticeOneResponse getNotice(UUID noticeId) {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
-
-        Star star = starRepository.findByNoticeAndUser(notice, user)
-                .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
         notice.UpViewCount();
 
@@ -53,12 +52,16 @@ public class NoticeIntroService {
                 .noticeId(notice.getId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
+                .imageUrl(notice.getImageUrl())
+                .stars(starFacade.findAllByNotice(notice))
+                .stacks(stackFacade.findAllByNotice(notice))
+                .viewCount(notice.getViewCount())
+                .isMine(notice.isMine())
+                .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
+                .isStar(starRepository.findByNoticeAndUser(notice, user).isPresent())
+                .myStar(starRepository.findByNoticeAndUser(notice, user).get().getStars())
                 .createTime(notice.getCreateTime())
                 .profileImage(notice.getUser().getImageUrl())
-                .email(notice.getUser().getEmail())
-                .viewCount(notice.getViewCount())
-                .stars(star.getStars())
-                .stacks(stackFacade.findAllByNotice(notice))
                 .list(list)
                 .build();
     }

@@ -28,6 +28,7 @@ public class Notice extends BaseTimeEntity {
     @Column
     private String title;
 
+    @NotNull
     @Column
     private String imageUrl;
 
@@ -76,9 +77,5 @@ public class Notice extends BaseTimeEntity {
 
     public void UpViewCount() {
         this.viewCount++;
-    }
-
-    public void updateStar(float star) {
-        this.star = star;
     }
 }
