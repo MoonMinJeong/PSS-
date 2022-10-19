@@ -24,32 +24,6 @@ public class NoticeGetService {
     private final StarFacade starFacade;
     private final UserFacade userFacade;
 
-    public NoticeResponse getAll() {
-        User user = userFacade.getCurrentUser();
-
-        List<NoticeResponse.NoticeDto> list = noticeRepository.findAll()
-                .stream()
-                .map(notice ->
-                        NoticeResponse.NoticeDto.builder()
-                                .noticeId(notice.getId())
-                                .title(notice.getTitle())
-                                .imageUrl(notice.getImageUrl())
-                                .introduction(notice.getIntroduction())
-                                .viewCount(notice.getViewCount())
-                                .stars(starFacade.findAllByNotice(notice))
-                                .likes(likeRepository.findAllByNotice(notice).size())
-                                .isMine(notice.isMine())
-                                .nickname(notice.getUser().getNickname())
-                                .profileImage(notice.getUser().getImageUrl())
-                                .stacks(stackFacade.findAllByNotice(notice))
-                                .createTime(notice.getCreateTime())
-                                .build()
-                )
-                .collect(Collectors.toList());
-
-        return new NoticeResponse(list);
-    }
-
     public NoticeResponse getListByTime() {
         User user = userFacade.getCurrentUser();
 

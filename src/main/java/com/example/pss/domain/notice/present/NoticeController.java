@@ -35,11 +35,6 @@ public class NoticeController {
         return noticeIntroService.getNotice(noticeId);
     }
 
-    @GetMapping
-    public NoticeResponse getAll() {
-        return noticeGetService.getAll();
-    }
-
     @GetMapping("/time")
     public NoticeResponse getListByTime() {
         return noticeGetService.getListByTime();

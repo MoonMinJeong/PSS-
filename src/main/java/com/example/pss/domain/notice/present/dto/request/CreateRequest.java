@@ -19,7 +19,5 @@ public class CreateRequest {
     @NotBlank(message = "imageUrl 비어있으면 안됩니다")
     private String imageUrl;
 
-    private Type projectType;
-
     private String introduction;
 }

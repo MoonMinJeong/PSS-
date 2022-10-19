@@ -37,9 +37,6 @@ public class Notice extends BaseTimeEntity {
     private String content;
 
     @Column
-    private Type projectType;
-
-    @Column
     private float star;
 
     @Column
@@ -56,12 +53,11 @@ public class Notice extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public Notice(String title, String content, String imageUrl, Type projectType, float star, Integer viewCount, String introduction, boolean isMine, User user) {
+    public Notice(String title, String content, String imageUrl, float star, Integer viewCount, String introduction, boolean isMine, User user) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
         this.introduction = introduction;
-        this.projectType = projectType;
         this.star = star;
         this.viewCount = viewCount;
         this.isMine = isMine;

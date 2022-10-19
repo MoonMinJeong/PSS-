@@ -22,7 +22,6 @@ public class NoticeCreateService {
                         .title(request.getTitle())
                         .content(request.getContent())
                         .imageUrl(request.getImageUrl())
-                        .projectType(request.getProjectType())
                         .star(0)
                         .viewCount(0)
                         .introduction(request.getIntroduction())
