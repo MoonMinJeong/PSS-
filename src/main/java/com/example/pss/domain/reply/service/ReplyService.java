@@ -10,6 +10,8 @@ import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Service
 public class ReplyService {
@@ -17,7 +19,7 @@ public class ReplyService {
     private final CommentFacade commentFacade;
     private final UserFacade userFacade;
 
-    public void create(ReplyCreateRequest request, Long commentId) {
+    public void create(UUID commentId, ReplyCreateRequest request) {
         User user = userFacade.getCurrentUser();
         Comment comment = commentFacade.findCommentById(commentId);
 
@@ -25,6 +27,7 @@ public class ReplyService {
                 Reply.builder()
                         .content(request.getContent())
                         .user(user)
+                        .notice(comment.getNotice())
                         .comment(comment)
                         .isMine(true)
                         .build()

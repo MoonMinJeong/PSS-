@@ -8,27 +8,27 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
-import static com.example.pss.domain.notice.domain.QNotice.notice;
 import static com.example.pss.domain.comment.domain.QComment.comment;
+import static com.example.pss.domain.notice.domain.QNotice.notice;
 import static com.example.pss.domain.reply.domain.QReply.reply;
 
 @RequiredArgsConstructor
-public class CommentCustomRepository implements CommentCustom{
+public class CommentCustomImpl implements CommentCustom {
     private final JPAQueryFactory query;
 
     @Override
-    public List<Comment> findCommentsById(UUID noticeId) {
+    public List<Comment> getCommentById(UUID id) {
         return query.selectFrom(comment)
                 .leftJoin(comment.notice, notice)
-                .where(notice.id.eq(noticeId))
+                .where(notice.id.eq(id))
                 .fetch();
     }
 
     @Override
-    public List<Reply> findRepliesById(Long commentId) {
+    public List<Reply> getReplyById(UUID id) {
         return query.selectFrom(reply)
                 .leftJoin(reply.comment, comment)
-                .where(comment.id.eq(commentId))
+                .where(comment.id.eq(id))
                 .fetch();
     }
 }

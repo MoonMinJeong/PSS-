@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -15,7 +16,7 @@ public class ReplyController {
     private final ReplyService replyService;
 
     @PostMapping("/{commentId}")
-    public void create(@PathVariable("commentId") @NonNull Long commentId, @RequestBody @Valid ReplyCreateRequest request) {
-        replyService.create(request, commentId);
+    public void create(@PathVariable("commentId") @NonNull UUID commentId, @RequestBody @Valid ReplyCreateRequest request) {
+        replyService.create(commentId, request);
     }
 }

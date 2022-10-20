@@ -7,7 +7,9 @@ import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
 import com.example.pss.domain.stack.facade.StackFacade;
+import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
+import com.example.pss.domain.star.exception.StarNotFoundException;
 import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
@@ -37,15 +39,17 @@ public class NoticeIntroService {
 
         notice.UpViewCount();
 
-        List<CommentResponse> list = commentRepository.findCommentsById(noticeId)
+        List<CommentResponse> list = commentRepository.getCommentById(noticeId)
                 .stream()
-                .map(comment -> new CommentResponse(
-                        comment.getUser().getNickname(),
-                        comment.getContent(),
-                        comment.getUser().getImageUrl(),
-                        comment.isMine(),
-                        commentRepository.findRepliesById(comment.getId())
-                ))
+                .map(comment ->
+                        new CommentResponse(
+                                comment.getId(),
+                                comment.getUser().getNickname(),
+                                comment.getContent(),
+                                comment.getUser().getImageUrl(),
+                                comment.isMine(),
+                                commentRepository.getReplyById(comment.getId())
+                        ))
                 .collect(Collectors.toList());
 
         return NoticeOneResponse.builder()
@@ -59,7 +63,7 @@ public class NoticeIntroService {
                 .isMine(notice.isMine())
                 .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                 .isStar(starRepository.findByNoticeAndUser(notice, user).isPresent())
-                .myStar(starRepository.findByNoticeAndUser(notice, user).get().getStars())
+                .myStar(starFacade.findByNoticeAndUser(notice, user))
                 .createTime(notice.getCreateTime())
                 .profileImage(notice.getUser().getImageUrl())
                 .list(list)

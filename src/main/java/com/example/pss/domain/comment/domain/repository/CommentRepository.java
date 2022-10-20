@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface CommentRepository extends CrudRepository<Comment, Long>, CommentCustom {
-    Optional<Comment> findCommentById(Long id);
+public interface CommentRepository extends CrudRepository<Comment, UUID>, CommentCustom {
+    Optional<Comment> findCommentById(UUID id);
     List<Comment> findAllByNoticeId(UUID noticeId);
 }
