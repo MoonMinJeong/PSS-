@@ -1,14 +1,17 @@
 package com.example.pss.domain.reply.domain;
 
 import com.example.pss.domain.comment.domain.Comment;
+import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.global.entity.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -16,14 +19,20 @@ import javax.persistence.*;
 @Entity
 public class Reply extends BaseTimeEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(columnDefinition = "BINARY(16)")
+    private UUID id;
 
     @Column
     private String content;
 
     @Column
     private boolean isMine;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "notice_id", nullable = false)
+    private Notice notice;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -34,7 +43,8 @@ public class Reply extends BaseTimeEntity {
     private Comment comment;
 
     @Builder
-    public Reply(String content, boolean isMine, User user, Comment comment) {
+    public Reply(String content, boolean isMine, Notice notice, User user, Comment comment) {
+        this.notice = notice;
         this.content = content;
         this.isMine = isMine;
         this.user = user;

@@ -5,7 +5,8 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface ReplyRepository extends CrudRepository<Reply, Long> {
-    Optional<Reply> findReplyById(Long id);
+public interface ReplyRepository extends CrudRepository<Reply, UUID> {
+    Optional<Reply> findReplyById(UUID id);
 }
