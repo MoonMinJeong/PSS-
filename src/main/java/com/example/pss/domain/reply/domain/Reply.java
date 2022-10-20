@@ -50,4 +50,8 @@ public class Reply extends BaseTimeEntity {
         this.user = user;
         this.comment = comment;
     }
+
+    public void update(String content) {
+        this.content = content;
+    }
 }

@@ -116,7 +116,7 @@ public class UserSignService {
         String image = (String) jsonObject.get("avatar_url");
         String email = (String) jsonObject.get("email");
 
-        if (!userRepository.findByNickname(name).isPresent()) {
+        if (userRepository.findByNickname(name).isEmpty()) {
             User user = userRepository.save(
                     User.builder()
                             .nickname(name)

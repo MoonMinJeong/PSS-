@@ -11,10 +11,13 @@ public enum ErrorCode {
     INVALID_JWT(401, "JWT-401-1", "Invalid Jwt"),
     EXPIRED_JWT(401, "jwt-401-2", "Expired Jwt"),
 
+    NOT_MINE(403, "grant-403-1", "Not Mine"),
+
     NOTICE_NOT_FOUND(404, "notice-404-1", "notice not found"),
     STACK_NOT_FOUND(404, "stack-404-1", "stack not found"),
     STAR_NOT_FOUND(404, "star-404-1", "star not found"),
     COMMENT_NOT_FOUND(404, "comment-404-1", "comment not found"),
+    REPLY_NOT_FOUND(404, "reply-404-1", "reply not found"),
 
     USER_EXISTS(409, "USER-409-1", "User Exists"),
     LIKE_EXISTS(409, "LIKE-409-1", "Like Exists"),

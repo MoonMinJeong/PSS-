@@ -2,9 +2,9 @@ package com.example.pss.domain.comment.service;
 
 import com.example.pss.domain.comment.domain.Comment;
 import com.example.pss.domain.comment.domain.repository.CommentRepository;
-import com.example.pss.domain.comment.present.dto.CommentCreateRequest;
-import com.example.pss.domain.comment.present.dto.response.CommentListResponse;
-import com.example.pss.domain.comment.present.dto.response.CommentResponse;
+import com.example.pss.domain.comment.exception.NotMineException;
+import com.example.pss.domain.comment.facade.CommentFacade;
+import com.example.pss.domain.comment.present.dto.CommentRequest;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.user.domain.User;
@@ -12,10 +12,9 @@ import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -24,8 +23,9 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final UserFacade userFacade;
     private final NoticeFacade noticeFacade;
+    private final CommentFacade commentFacade;
 
-    public void create(UUID noticeId, CommentCreateRequest request) {
+    public void create(UUID noticeId, CommentRequest request) {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
 
@@ -39,21 +39,22 @@ public class CommentService {
         );
     }
 
-    public CommentListResponse readAll(UUID id) {
+    @Transactional
+    public void update(UUID commentId, CommentRequest request) {
+        Comment comment = commentFacade.findCommentById(commentId);
+        User user = userFacade.getCurrentUser();
 
-        List<CommentResponse> list = commentRepository.getCommentById(id)
-                .stream()
-                .map(comment ->
-                        new CommentResponse(
-                                comment.getId(),
-                                comment.getUser().getNickname(),
-                                comment.getContent(),
-                                comment.getUser().getImageUrl(),
-                                comment.isMine(),
-                                commentRepository.getReplyById(comment.getId())
-                        ))
-                .collect(Collectors.toList());
+        if(!user.equals(comment.getUser())) {
+            throw NotMineException.EXCEPTION;
+        }
 
-        return new CommentListResponse(list);
+        comment.update(request.getContent());
+    }
+
+    @Transactional
+    public void delete(UUID commentId) {
+        Comment comment = commentFacade.findCommentById(commentId);
+
+        commentRepository.delete(comment);
     }
 }
