@@ -25,10 +25,6 @@ public class LikeService {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
 
-        if(likeRepository.findByUserAndNotice(user, notice).isPresent()) {
-            throw LikeExistsException.EXCEPTION;
-        }
-
         likeRepository.save(
                 Like.builder()
                         .user(user)

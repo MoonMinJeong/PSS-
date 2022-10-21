@@ -17,7 +17,7 @@ public class NoticeCreateService {
     public void create(CreateRequest request) {
         User user = userFacade.getCurrentUser();
 
-        noticeRepository.save(
+        Notice notice = noticeRepository.save(
                 Notice.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
@@ -29,5 +29,7 @@ public class NoticeCreateService {
                         .user(user)
                         .build()
         );
+
+        
     }
 }
