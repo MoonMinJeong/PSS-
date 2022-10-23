@@ -2,7 +2,6 @@ package com.example.pss.domain.comment.service;
 
 import com.example.pss.domain.comment.domain.Comment;
 import com.example.pss.domain.comment.domain.repository.CommentRepository;
-import com.example.pss.domain.comment.exception.NotMineException;
 import com.example.pss.domain.comment.facade.CommentFacade;
 import com.example.pss.domain.comment.present.dto.CommentRequest;
 import com.example.pss.domain.notice.domain.Notice;
@@ -42,11 +41,6 @@ public class CommentService {
     @Transactional
     public void update(UUID commentId, CommentRequest request) {
         Comment comment = commentFacade.findCommentById(commentId);
-        User user = userFacade.getCurrentUser();
-
-        if(!user.equals(comment.getUser())) {
-            throw NotMineException.EXCEPTION;
-        }
 
         comment.update(request.getContent());
     }

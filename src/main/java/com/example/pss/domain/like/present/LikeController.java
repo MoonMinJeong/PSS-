@@ -17,7 +17,7 @@ public class LikeController {
         likeService.likeTopic(id);
     }
 
-    @PatchMapping("/{noticeId}")
+    @DeleteMapping("/{noticeId}")
     public void deleteLike(@PathVariable("noticeId") UUID id) {
         likeService.deleteLikeTopic(id);
     }

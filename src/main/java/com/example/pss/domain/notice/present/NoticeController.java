@@ -45,12 +45,12 @@ public class NoticeController {
         return noticeGetService.getListByStar();
     }
 
-    @PostMapping("/star/{title}")
+    @GetMapping("/star/{title}")
     public NoticeResponse getListByTitleOrderByStar(@PathVariable("title") String title) {
         return noticeGetService.getListByTitleOrderByStar(title);
     }
 
-    @PostMapping("/time/{title}")
+    @GetMapping("/time/{title}")
     public NoticeResponse getListByTitleOrderByTime(@PathVariable("title") String title) {
         return noticeGetService.getListByTitleOrderByTime(title);
     }
