@@ -1,5 +1,7 @@
 package com.example.pss.domain.notice.service;
 
+import com.example.pss.domain.member.domain.Member;
+import com.example.pss.domain.member.domain.repository.MemberRepository;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
@@ -18,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class NoticeCreateService {
     private final NoticeRepository noticeRepository;
+    private final MemberRepository memberRepository;
     private final StackRepository stackRepository;
     private final UserFacade userFacade;
 
@@ -26,6 +29,7 @@ public class NoticeCreateService {
         User user = userFacade.getCurrentUser();
 
         List<Stack> stack = new ArrayList<>();
+        List<Member> members = new ArrayList<>();
 
         Notice notice = noticeRepository.save(
                 Notice.builder()
@@ -51,6 +55,18 @@ public class NoticeCreateService {
             );
         }
 
-        notice.updateStacks(stack);
+        for(String nickname : request.getNicknames()) {
+            members.add(
+                    memberRepository.save(
+                            Member.builder()
+                                    .nickname(nickname)
+                                    .user(user)
+                                    .notice(notice)
+                                    .build()
+                    )
+            );
+        }
+
+        notice.updateList(stack, members);
     }
 }

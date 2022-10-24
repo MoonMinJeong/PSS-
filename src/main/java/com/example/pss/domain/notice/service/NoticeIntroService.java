@@ -3,13 +3,12 @@ package com.example.pss.domain.notice.service;
 import com.example.pss.domain.comment.domain.repository.CommentRepository;
 import com.example.pss.domain.comment.present.dto.response.CommentResponse;
 import com.example.pss.domain.like.domain.repository.LikeRepository;
+import com.example.pss.domain.member.facade.MemberFacade;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
 import com.example.pss.domain.stack.facade.StackFacade;
-import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
-import com.example.pss.domain.star.exception.StarNotFoundException;
 import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
@@ -25,6 +24,7 @@ import java.util.stream.Collectors;
 @Service
 public class NoticeIntroService {
     private final NoticeFacade noticeFacade;
+    private final MemberFacade memberFacade;
     private final StackFacade stackFacade;
     private final StarFacade starFacade;
     private final StarRepository starRepository;
@@ -59,6 +59,7 @@ public class NoticeIntroService {
                 .imageUrl(notice.getImageUrl())
                 .stars(starFacade.findAllByNotice(notice))
                 .stacks(stackFacade.findAllByNotice(notice))
+                .nicknames(memberFacade.findAllByNotice(notice))
                 .viewCount(notice.getViewCount())
                 .isMine(notice.isMine())
                 .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
