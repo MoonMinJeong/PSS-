@@ -1,10 +1,12 @@
 package com.example.pss.domain.notice.present.dto.request;
 
+import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.global.enums.Type;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor
@@ -18,6 +20,8 @@ public class CreateRequest {
 
     @NotBlank(message = "imageUrl 비어있으면 안됩니다")
     private String imageUrl;
+
+    private List<String> stacks;
 
     private String introduction;
 }
