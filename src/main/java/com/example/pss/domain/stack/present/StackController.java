@@ -14,12 +14,7 @@ import java.util.UUID;
 @RequestMapping("/stack")
 public class StackController {
     private final StackService service;
-
-    @PostMapping("/{noticeId}")
-    public void create(@PathVariable("noticeId") UUID noticeId, @RequestBody @Valid StackRequest request) {
-        service.createStack(request, noticeId);
-    }
-
+    
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long stackId) {
         service.deleteStack(stackId);

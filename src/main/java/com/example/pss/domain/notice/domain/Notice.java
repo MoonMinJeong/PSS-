@@ -1,8 +1,9 @@
 package com.example.pss.domain.notice.domain;
 
+import com.example.pss.domain.member.domain.Member;
+import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.global.entity.BaseTimeEntity;
-import com.example.pss.global.enums.Type;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,6 +12,8 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -52,6 +55,12 @@ public class Notice extends BaseTimeEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Stack> stacks = new ArrayList<>();
+
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Member> members = new ArrayList<>();
+
     @Builder
     public Notice(String title, String content, String imageUrl, float star, Integer viewCount, String introduction, boolean isMine, User user) {
         this.title = title;
@@ -73,5 +82,10 @@ public class Notice extends BaseTimeEntity {
 
     public void UpViewCount() {
         this.viewCount++;
+    }
+
+    public void updateList(List<Stack> stacks, List<Member> members) {
+        this.stacks = stacks;
+        this.members = members;
     }
 }

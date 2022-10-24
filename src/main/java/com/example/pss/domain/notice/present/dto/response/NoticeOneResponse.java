@@ -25,6 +25,7 @@ public class NoticeOneResponse {
 
     private float stars;
     private List<String> stacks;
+    private List<String> nicknames;
     private Integer viewCount;
 
     private boolean isMine;
