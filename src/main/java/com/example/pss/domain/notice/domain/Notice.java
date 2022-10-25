@@ -1,5 +1,6 @@
 package com.example.pss.domain.notice.domain;
 
+import com.example.pss.domain.image.domain.Image;
 import com.example.pss.domain.member.domain.Member;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
@@ -61,6 +62,9 @@ public class Notice extends BaseTimeEntity {
     @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Member> members = new ArrayList<>();
 
+    @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    private List<Image> images = new ArrayList<>();
+
     @Builder
     public Notice(String title, String content, String imageUrl, float star, Integer viewCount, String introduction, boolean isMine, User user) {
         this.title = title;
@@ -73,10 +77,9 @@ public class Notice extends BaseTimeEntity {
         this.user = user;
     }
 
-    public void UpdateNotice(String title, String content, String imageUrl, String introduction) {
+    public void UpdateNotice(String title, String content, String introduction, List<Image> images, List<Stack> stacks, List<Member> members) {
         this.title = title;
         this.content = content;
-        this.imageUrl = imageUrl;
         this.introduction = introduction;
     }
 
@@ -84,8 +87,9 @@ public class Notice extends BaseTimeEntity {
         this.viewCount++;
     }
 
-    public void updateList(List<Stack> stacks, List<Member> members) {
+    public void updateList(List<Stack> stacks, List<Member> members, List<Image> images) {
         this.stacks = stacks;
         this.members = members;
+        this.images = images;
     }
 }

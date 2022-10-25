@@ -16,8 +16,7 @@ public class CreateRequest {
     @NotBlank(message = "content 비어있으면 안됩니다")
     private String content;
 
-    @NotBlank(message = "imageUrl 비어있으면 안됩니다")
-    private String imageUrl;
+    private List<String> images;
 
     private List<String> stacks;
 

@@ -1,5 +1,7 @@
 package com.example.pss.domain.notice.service;
 
+import com.example.pss.domain.image.domain.Image;
+import com.example.pss.domain.image.domain.repository.ImageRepository;
 import com.example.pss.domain.member.domain.Member;
 import com.example.pss.domain.member.domain.repository.MemberRepository;
 import com.example.pss.domain.notice.domain.Notice;
@@ -21,6 +23,7 @@ import java.util.List;
 public class NoticeCreateService {
     private final NoticeRepository noticeRepository;
     private final MemberRepository memberRepository;
+    private final ImageRepository imageRepository;
     private final StackRepository stackRepository;
     private final UserFacade userFacade;
 
@@ -30,12 +33,13 @@ public class NoticeCreateService {
 
         List<Stack> stack = new ArrayList<>();
         List<Member> members = new ArrayList<>();
+        List<Image> images = new ArrayList<>();
 
         Notice notice = noticeRepository.save(
                 Notice.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
-                        .imageUrl(request.getImageUrl())
+                        .imageUrl(request.getImages().get(0))
                         .star(0)
                         .viewCount(0)
                         .introduction(request.getIntroduction())
@@ -67,6 +71,17 @@ public class NoticeCreateService {
             );
         }
 
-        notice.updateList(stack, members);
+        for(String imageUrl : request.getImages()) {
+            images.add(
+                    imageRepository.save(
+                            Image.builder()
+                                    .imageUrl(imageUrl)
+                                    .notice(notice)
+                                    .build()
+                    )
+            );
+        }
+
+        notice.updateList(stack, members, images);
     }
 }

@@ -26,10 +26,11 @@ public class NoticeController {
         noticeCreateService.create(request);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public void update(@RequestBody @Valid UpdateRequest request, @PathVariable("id") UUID uuid) {
         noticeUpdateService.update(request, uuid);
     }
+    
     @GetMapping("/{id}")
     public NoticeOneResponse getOne(@PathVariable("id") UUID noticeId) {
         return noticeIntroService.getNotice(noticeId);

@@ -31,4 +31,27 @@ public class StackFacade {
         }
         return list;
     }
+    public List<Stack> findByList(List<String> list, Notice notice) {
+        List<Stack> stacks = new ArrayList<>();
+
+        for(String techName : list) {
+            if(stackRepository.findByTechNameAndNotice(techName, notice).isEmpty()) {
+                stacks.add(
+                        stackRepository.save(
+                                Stack.builder()
+                                        .techName(techName)
+                                        .notice(notice)
+                                        .build()
+                        )
+                );
+            } else {
+                Stack stack = stackRepository.findByTechNameAndNotice(techName, notice)
+                        .orElseThrow(() -> StackNotFoundException.EXCEPTION);
+
+                stacks.add(stack);
+            }
+        }
+
+        return stacks;
+    }
 }

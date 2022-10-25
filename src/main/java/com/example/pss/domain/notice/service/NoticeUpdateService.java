@@ -1,8 +1,14 @@
 package com.example.pss.domain.notice.service;
 
+import com.example.pss.domain.image.facade.ImageFacade;
+import com.example.pss.domain.member.facade.MemberFacade;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.request.UpdateRequest;
+import com.example.pss.domain.stack.domain.repository.StackRepository;
+import com.example.pss.domain.stack.facade.StackFacade;
+import com.example.pss.domain.user.domain.User;
+import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,11 +19,23 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class NoticeUpdateService {
     private final NoticeFacade noticeFacade;
+    private final StackFacade stackFacade;
+    private final MemberFacade memberFacade;
+    private final UserFacade userFacade;
+    private final ImageFacade imageFacade;
 
     @Transactional
     public void update(UpdateRequest request, UUID uuid) {
         Notice notice = noticeFacade.findById(uuid);
+        User user = userFacade.getCurrentUser();
 
-        notice.UpdateNotice(request.getTitle(), request.getContent(), request.getImageUrl(), request.getIntroduction());
+        notice.UpdateNotice(
+                request.getTitle(),
+                request.getContent(),
+                request.getIntroduction(),
+                imageFacade.findByList(request.getImages(), notice),
+                stackFacade.findByList(request.getStacks(), notice),
+                memberFacade.findByList(request.getMembers(), notice, user)
+        );
     }
 }
