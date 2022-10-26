@@ -1,6 +1,5 @@
 package com.example.pss.domain.notice.domain;
 
-import com.example.pss.domain.image.domain.Image;
 import com.example.pss.domain.member.domain.Member;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
@@ -13,6 +12,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -38,6 +38,7 @@ public class Notice extends BaseTimeEntity {
 
     @NotNull
     @Column
+    @Size(min = 20, max = 2000)
     private String content;
 
     @Column
@@ -62,8 +63,6 @@ public class Notice extends BaseTimeEntity {
     @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Member> members = new ArrayList<>();
 
-    @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
-    private List<Image> images = new ArrayList<>();
 
     @Builder
     public Notice(String title, String content, String imageUrl, float star, Integer viewCount, String introduction, boolean isMine, User user) {
@@ -77,19 +76,19 @@ public class Notice extends BaseTimeEntity {
         this.user = user;
     }
 
-    public void UpdateNotice(String title, String content, String introduction, List<Image> images, List<Stack> stacks, List<Member> members) {
+    public void UpdateNotice(String title, String content, List<Stack> stacks, List<Member> members) {
         this.title = title;
         this.content = content;
-        this.introduction = introduction;
+        this.stacks = stacks;
+        this.members = members;
     }
 
     public void UpViewCount() {
         this.viewCount++;
     }
 
-    public void updateList(List<Stack> stacks, List<Member> members, List<Image> images) {
+    public void updateList(List<Stack> stacks, List<Member> members) {
         this.stacks = stacks;
         this.members = members;
-        this.images = images;
     }
 }

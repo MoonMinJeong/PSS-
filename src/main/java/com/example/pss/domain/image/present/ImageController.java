@@ -19,9 +19,4 @@ public class ImageController {
     public ImageDto upload(@RequestPart List<MultipartFile> files) {
         return imageService.upload(files);
     }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable("id")UUID imageId) {
-        imageService.delete(imageId);
-    }
 }

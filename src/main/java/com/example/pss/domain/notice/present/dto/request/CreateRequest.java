@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Getter
@@ -14,13 +15,13 @@ public class CreateRequest {
     private String title;
 
     @NotBlank(message = "content 비어있으면 안됩니다")
+    @Size(min = 20, max = 2000, message = "최소 20글자는 입력되어야 합니다.")
     private String content;
 
-    private List<String> images;
+    @NotBlank(message = "imageUrl 비어있으면 안됩니다")
+    private String imageUrl;
 
     private List<String> stacks;
 
     private List<String> nicknames;
-
-    private String introduction;
 }

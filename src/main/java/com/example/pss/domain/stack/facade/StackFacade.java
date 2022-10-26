@@ -5,12 +5,15 @@ import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
 import com.example.pss.domain.stack.exception.StackNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Component
 public class StackFacade {
@@ -21,6 +24,7 @@ public class StackFacade {
                 .orElseThrow(() -> StackNotFoundException.EXCEPTION);
     }
 
+    @Transactional
     public List<String> findAllByNotice(Notice notice) {
         List<String> list = new ArrayList<>();
 
@@ -31,7 +35,17 @@ public class StackFacade {
         }
         return list;
     }
+
     public List<Stack> findByList(List<String> list, Notice notice) {
+
+        List<Stack> originStacks = stackRepository.findAllByNotice(notice)
+                .stream()
+                .map(stack -> Stack.builder()
+                        .techName(stack.getTechName())
+                        .notice(stack.getNotice()).build()
+                )
+                .collect(Collectors.toList());
+
         List<Stack> stacks = new ArrayList<>();
 
         for(String techName : list) {

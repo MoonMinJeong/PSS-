@@ -21,7 +21,7 @@ public class NoticeOneResponse {
     private String title;
     private String content;
 
-    private List<String> imageUrl;
+    private Integer likes;
 
     private float stars;
     private List<String> stacks;

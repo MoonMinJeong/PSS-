@@ -6,7 +6,6 @@ import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.facade.StarFacade;
-import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +20,6 @@ public class NoticeGetService {
     private final MemberFacade memberFacade;
     private final StackFacade stackFacade;
     private final StarFacade starFacade;
-    private final UserFacade userFacade;
 
     public NoticeResponse getListByTime() {
         List<NoticeResponse.NoticeDto> noticeResponseList = noticeRepository.findAllDesc()
@@ -39,7 +37,6 @@ public class NoticeGetService {
                                 .nickname(notice.getUser().getNickname())
                                 .profileImage(notice.getUser().getImageUrl())
                                 .stacks(stackFacade.findAllByNotice(notice))
-                                .nicknames(memberFacade.findAllByNotice(notice))
                                 .createTime(notice.getCreateTime())
                                 .build()
                 )
@@ -91,7 +88,6 @@ public class NoticeGetService {
                                 .nickname(notice.getUser().getNickname())
                                 .profileImage(notice.getUser().getImageUrl())
                                 .stacks(stackFacade.findAllByNotice(notice))
-                                .nicknames(memberFacade.findAllByNotice(notice))
                                 .createTime(notice.getCreateTime())
                                 .build()
                 )
@@ -117,7 +113,6 @@ public class NoticeGetService {
                                 .nickname(notice.getUser().getNickname())
                                 .profileImage(notice.getUser().getImageUrl())
                                 .stacks(stackFacade.findAllByNotice(notice))
-                                .nicknames(memberFacade.findAllByNotice(notice))
                                 .createTime(notice.getCreateTime())
                                 .build()
                 )

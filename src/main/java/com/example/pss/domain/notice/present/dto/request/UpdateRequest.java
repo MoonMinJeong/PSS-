@@ -10,8 +10,7 @@ import java.util.List;
 public class UpdateRequest {
     private String title;
     private String content;
-    private List<String> images;
+    private String imageUrl;
     private List<String> stacks;
-    private List<String> members;
-    private String introduction;
+    private List<String> nicknames;
 }

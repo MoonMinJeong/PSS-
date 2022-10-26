@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_save")
 @Entity
 public class Save {
     @Id

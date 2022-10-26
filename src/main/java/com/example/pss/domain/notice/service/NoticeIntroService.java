@@ -2,7 +2,6 @@ package com.example.pss.domain.notice.service;
 
 import com.example.pss.domain.comment.domain.repository.CommentRepository;
 import com.example.pss.domain.comment.present.dto.response.CommentResponse;
-import com.example.pss.domain.image.facade.ImageFacade;
 import com.example.pss.domain.like.domain.repository.LikeRepository;
 import com.example.pss.domain.member.facade.MemberFacade;
 import com.example.pss.domain.notice.domain.Notice;
@@ -28,7 +27,6 @@ public class NoticeIntroService {
     private final MemberFacade memberFacade;
     private final StackFacade stackFacade;
     private final StarFacade starFacade;
-    private final ImageFacade imageFacade;
     private final StarRepository starRepository;
     private final UserFacade userFacade;
     private final CommentRepository commentRepository;
@@ -58,7 +56,7 @@ public class NoticeIntroService {
                 .noticeId(notice.getId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
-                .imageUrl(imageFacade.findAllByNotice(notice))
+                .likes(likeRepository.findAllByNotice(notice).size())
                 .stars(starFacade.findAllByNotice(notice))
                 .stacks(stackFacade.findAllByNotice(notice))
                 .nicknames(memberFacade.findAllByNotice(notice))

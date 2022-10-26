@@ -6,6 +6,7 @@ import com.example.pss.domain.comment.facade.CommentFacade;
 import com.example.pss.domain.comment.present.dto.CommentRequest;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
+import com.example.pss.domain.reply.domain.repository.ReplyRepository;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +24,7 @@ public class CommentService {
     private final UserFacade userFacade;
     private final NoticeFacade noticeFacade;
     private final CommentFacade commentFacade;
+    private final ReplyRepository replyRepository;
 
     public void create(UUID noticeId, CommentRequest request) {
         User user = userFacade.getCurrentUser();
@@ -50,5 +52,6 @@ public class CommentService {
         Comment comment = commentFacade.findCommentById(commentId);
 
         commentRepository.delete(comment);
+        replyRepository.deleteAllByComment(comment);
     }
 }
