@@ -42,7 +42,7 @@ public class Notice extends BaseTimeEntity {
     private String content;
 
     @Column
-    private float star;
+    private Float star;
 
     @Column
     private Integer viewCount;
@@ -65,7 +65,7 @@ public class Notice extends BaseTimeEntity {
 
 
     @Builder
-    public Notice(String title, String content, String imageUrl, float star, Integer viewCount, String introduction, boolean isMine, User user) {
+    public Notice(String title, String content, String imageUrl, Float star, Integer viewCount, String introduction, boolean isMine, User user) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;

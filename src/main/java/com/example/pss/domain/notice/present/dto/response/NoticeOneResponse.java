@@ -23,7 +23,7 @@ public class NoticeOneResponse {
 
     private Integer likes;
 
-    private float stars;
+    private Float stars;
     private List<String> stacks;
     private List<String> nicknames;
     private Integer viewCount;

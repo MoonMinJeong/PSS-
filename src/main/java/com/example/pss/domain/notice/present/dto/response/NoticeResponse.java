@@ -25,10 +25,9 @@ public class NoticeResponse {
         private String imageUrl;
         private String introduction;
         private List<String> stacks;
-        private List<String> nicknames;
 
         private Integer viewCount;
-        private float stars;
+        private Float stars;
         private Integer likes;
 
         private boolean isMine;
@@ -42,13 +41,12 @@ public class NoticeResponse {
         public NoticeDto(
                 UUID noticeId, String title, String imageUrl, String introduction, Integer viewCount,
                 float stars, Integer likes, String nickname, boolean isMine,
-                String profileImage, List<String> stacks, List<String> nicknames, LocalDateTime createTime) {
+                String profileImage, List<String> stacks, LocalDateTime createTime) {
             this.noticeId = noticeId;
             this.title = title;
             this.imageUrl = imageUrl;
             this.introduction = introduction;
             this.stacks = stacks;
-            this.nicknames = nicknames;
             this.nickname = nickname;
             this.profileImage = profileImage;
             this.likes = likes;

@@ -51,7 +51,7 @@ public class CommentService {
     public void delete(UUID commentId) {
         Comment comment = commentFacade.findCommentById(commentId);
 
-        commentRepository.delete(comment);
         replyRepository.deleteAllByComment(comment);
+        commentRepository.delete(comment);
     }
 }

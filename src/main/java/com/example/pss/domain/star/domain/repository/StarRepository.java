@@ -12,4 +12,6 @@ public interface StarRepository extends CrudRepository<Star, Long> {
     List<Star> findAllByNotice(Notice notice);
 
     Optional<Star> findByNoticeAndUser(Notice notice, User user);
+
+    List<Star> deleteAllByNotice(Notice notice);
 }

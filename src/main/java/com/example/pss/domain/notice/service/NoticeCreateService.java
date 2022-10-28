@@ -5,6 +5,7 @@ import com.example.pss.domain.member.domain.repository.MemberRepository;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
+import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
 import com.example.pss.domain.user.domain.User;
@@ -25,7 +26,7 @@ public class NoticeCreateService {
     private final UserFacade userFacade;
 
     @Transactional
-    public void create(CreateRequest request) {
+    public NoticeIdResponse create(CreateRequest request) {
         User user = userFacade.getCurrentUser();
 
         List<Stack> stack = new ArrayList<>();
@@ -36,7 +37,7 @@ public class NoticeCreateService {
                         .title(request.getTitle())
                         .content(request.getContent())
                         .imageUrl(request.getImageUrl())
-                        .star(0)
+                        .star((float) 0)
                         .viewCount(0)
                         .introduction(request.getContent().substring(20))
                         .isMine(true)
@@ -68,5 +69,6 @@ public class NoticeCreateService {
         }
 
         notice.updateList(stack, members);
+        return new NoticeIdResponse(notice.getId());
     }
 }

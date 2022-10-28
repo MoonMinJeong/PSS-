@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface NoticeRepository extends CrudRepository<Notice, UUID> {
+public interface NoticeRepository extends CrudRepository<Notice, UUID>, NoticeCustom {
     Optional<Notice> findById(UUID noticeId);
 
     @Query("SELECT p FROM Notice p ORDER BY p.createTime DESC ")
