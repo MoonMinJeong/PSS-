@@ -8,6 +8,7 @@ import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
 import com.example.pss.domain.user.present.dto.UserProfileResponse;
+import com.example.pss.domain.user.present.dto.UserReviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,13 +24,13 @@ public class UserMyPostGetService {
     private final LikeRepository likeRepository;
     private final StackFacade stackFacade;
 
-    public UserProfileResponse getMyPost() {
+    public UserReviewResponse getMyPost() {
         User user = userFacade.getCurrentUser();
 
-        List<UserProfileResponse.NoticeDto> noticeResponses = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.POST)
+        List<UserReviewResponse.NoticeDto> noticeResponses = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.POST)
                 .stream()
                 .map(notice ->
-                        UserProfileResponse.NoticeDto.builder()
+                        UserReviewResponse.NoticeDto.builder()
                                 .noticeId(notice.getId())
                                 .title(notice.getTitle())
                                 .imageUrl(notice.getImageUrl())
@@ -46,10 +47,10 @@ public class UserMyPostGetService {
                 )
                 .collect(Collectors.toList());
 
-        List<UserProfileResponse.NoticeDto> noticeResponses2 = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.REVIEW)
+        List<UserReviewResponse.NoticeDto> noticeResponses2 = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.REVIEW)
                 .stream()
                 .map(notice ->
-                        UserProfileResponse.NoticeDto.builder()
+                        UserReviewResponse.NoticeDto.builder()
                                 .noticeId(notice.getId())
                                 .title(notice.getTitle())
                                 .imageUrl(notice.getImageUrl())
@@ -66,7 +67,7 @@ public class UserMyPostGetService {
                 )
                 .collect(Collectors.toList());
 
-        return UserProfileResponse.builder()
+        return UserReviewResponse.builder()
                 .noticeCount(noticeResponses.size())
                 .email(user.getEmail())
                 .profileImage(user.getImageUrl())

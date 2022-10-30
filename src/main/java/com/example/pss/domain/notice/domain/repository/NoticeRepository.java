@@ -15,4 +15,9 @@ public interface NoticeRepository extends CrudRepository<Notice, UUID>, NoticeCu
     List<Notice> findAllByNoticeTypeAndUser(NoticeType noticeType, User user);
 
     List<Notice> findAllByUserAndNoticeType(User user, NoticeType noticeType);
+
+    List<Notice> findAllByTitleContainsAndStarGreaterThanEqualOrderByCreateTimeDesc(String title, float star);
+    List<Notice> findAllByStarGreaterThanEqualOrderByCreateTimeDesc(float star);
+    List<Notice> findAllByTitleContainsAndStarGreaterThanEqualOrderByStarDesc(String title, float star);
+    List<Notice> findAllByStarGreaterThanEqualOrderByStarDesc(float star);
 }

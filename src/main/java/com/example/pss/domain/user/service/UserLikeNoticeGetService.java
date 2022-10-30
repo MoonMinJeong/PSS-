@@ -29,10 +29,10 @@ public class UserLikeNoticeGetService {
     public UserProfileResponse getMyLikePost() {
         User user = userFacade.getCurrentUser();
 
-        List<NoticeResponse.NoticeDto> noticeResponses = starFacade.findNoticesByStar(user)
+        List<UserProfileResponse.NoticeDto> noticeResponses = starFacade.findNoticesByStar(user)
                 .stream()
                 .map(notice ->
-                        NoticeResponse.NoticeDto.builder()
+                        UserProfileResponse.NoticeDto.builder()
                                 .noticeId(notice.getId())
                                 .title(notice.getTitle())
                                 .imageUrl(notice.getImageUrl())

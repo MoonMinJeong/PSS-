@@ -27,10 +27,10 @@ public class UserSaveMyGetService {
     public UserProfileResponse getMySavePost() {
         User user = userFacade.getCurrentUser();
 
-        List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.SAVE)
+        List<UserProfileResponse.NoticeDto> noticeResponses = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.SAVE)
                 .stream()
                 .map(notice ->
-                        NoticeResponse.NoticeDto.builder()
+                        UserProfileResponse.NoticeDto.builder()
                                 .noticeId(notice.getId())
                                 .title(notice.getTitle())
                                 .imageUrl(notice.getImageUrl())

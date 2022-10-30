@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -20,9 +21,9 @@ public class NoticeGetService {
     private final StarFacade starFacade;
 
     public NoticeResponse getNotice(String sort, float star, String title) {
-        if(sort == "time") {
-            if(title == "") {
-                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarOrderByCreateTime(star)
+        if(Objects.equals(sort, "time")) {
+            if(Objects.equals(title, "")) {
+                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarGreaterThanEqualOrderByCreateTimeDesc(star)
                         .stream()
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()
@@ -44,7 +45,7 @@ public class NoticeGetService {
 
                 return new NoticeResponse(noticeResponses);
             } else {
-                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarAndTitleOrderByCreateTime(star, title)
+                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByTitleContainsAndStarGreaterThanEqualOrderByCreateTimeDesc(title, star)
                         .stream()
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()
@@ -67,8 +68,8 @@ public class NoticeGetService {
                 return new NoticeResponse(noticeResponses);
             }
         } else {
-            if(title == "") {
-                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarOrderByStar(star)
+            if(Objects.equals(title, "")) {
+                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarGreaterThanEqualOrderByStarDesc(star)
                         .stream()
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()
@@ -90,7 +91,7 @@ public class NoticeGetService {
 
                 return new NoticeResponse(noticeResponses);
             } else {
-                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarAndTitleOrderByStar(star, title)
+                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByTitleContainsAndStarGreaterThanEqualOrderByStarDesc(title, star)
                         .stream()
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()
