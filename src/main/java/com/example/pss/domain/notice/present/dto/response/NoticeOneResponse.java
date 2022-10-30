@@ -1,13 +1,9 @@
 package com.example.pss.domain.notice.present.dto.response;
 
-import com.example.pss.domain.comment.present.dto.response.CommentListResponse;
 import com.example.pss.domain.comment.present.dto.response.CommentResponse;
-import com.example.pss.domain.stack.domain.Stack;
-import com.example.pss.domain.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.List;

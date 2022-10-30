@@ -2,7 +2,6 @@ package com.example.pss.domain.like.service;
 
 import com.example.pss.domain.like.domain.Like;
 import com.example.pss.domain.like.domain.repository.LikeRepository;
-import com.example.pss.domain.like.exception.LikeExistsException;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.user.domain.User;

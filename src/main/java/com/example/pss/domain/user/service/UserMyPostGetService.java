@@ -7,7 +7,6 @@ import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
-import com.example.pss.domain.user.present.dto.UserProfileResponse;
 import com.example.pss.domain.user.present.dto.UserReviewResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -8,5 +8,6 @@ import java.util.UUID;
 
 public interface CommentCustom {
     List<Comment> getCommentById(UUID id);
+
     List<Reply> getReplyById(UUID id);
 }

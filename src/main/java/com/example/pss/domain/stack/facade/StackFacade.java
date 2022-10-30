@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -28,7 +27,7 @@ public class StackFacade {
     public List<String> findAllByNotice(Notice notice) {
         List<String> list = new ArrayList<>();
 
-        for(int i = 0; i<stackRepository.findAllByNotice(notice).size(); i++) {
+        for (int i = 0; i < stackRepository.findAllByNotice(notice).size(); i++) {
             list.add(stackRepository.findAllByNotice(notice)
                     .get(i)
                     .getTechName());
@@ -39,8 +38,8 @@ public class StackFacade {
     public List<Stack> findByList(List<String> list, Notice notice) {
         List<Stack> stacks = new ArrayList<>();
 
-        for(String techName : list) {
-            if(stackRepository.findByTechNameAndNotice(techName, notice).isEmpty()) {
+        for (String techName : list) {
+            if (stackRepository.findByTechNameAndNotice(techName, notice).isEmpty()) {
                 stacks.add(
                         stackRepository.save(
                                 Stack.builder()

@@ -71,5 +71,5 @@ public class NoticeController {
         noticeDeleteService.delete(uuid);
     }
 
-    
+
 }

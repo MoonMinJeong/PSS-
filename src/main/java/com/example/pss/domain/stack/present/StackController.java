@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/stack")
 public class StackController {
     private final StackService service;
-    
+
     @DeleteMapping("/{id}")
     public void delete(@PathVariable("id") Long stackId) {
         service.deleteStack(stackId);

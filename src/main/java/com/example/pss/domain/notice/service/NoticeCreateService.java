@@ -2,7 +2,6 @@ package com.example.pss.domain.notice.service;
 
 import com.example.pss.domain.member.domain.Member;
 import com.example.pss.domain.member.domain.repository.MemberRepository;
-import com.example.pss.domain.member.exception.MemberExistsException;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.domain.type.NoticeType;
@@ -10,7 +9,6 @@ import com.example.pss.domain.notice.present.dto.request.CreateRequest;
 import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
-import com.example.pss.domain.stack.exception.StackExistsException;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;

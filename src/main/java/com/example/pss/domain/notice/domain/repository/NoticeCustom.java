@@ -7,7 +7,10 @@ import java.util.List;
 
 public interface NoticeCustom {
     List<Notice> findAllByStarAndTitleOrderByCreateTime(float star, @Param("title") String title);
+
     List<Notice> findAllByStarAndTitleOrderByStar(float star, @Param(("title")) String title);
+
     List<Notice> findAllByStarOrderByCreateTime(float star);
+
     List<Notice> findAllByStarOrderByStar(float star);
 }

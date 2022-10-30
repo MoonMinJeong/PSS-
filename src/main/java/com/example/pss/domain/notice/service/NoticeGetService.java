@@ -24,7 +24,7 @@ public class NoticeGetService {
     public NoticeResponse getNotice(String sort, float star, String title) {
         if (Objects.equals(sort, "time")) {
             if (Objects.equals(title, "")) {
-                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarGreaterThanEqualAndNoticeTypeOrderByCreateTimeDesc(star)
+                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarGreaterThanEqualAndNoticeTypeOrderByCreateTimeDesc(star, NoticeType.POST)
                         .stream()
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()
@@ -46,7 +46,7 @@ public class NoticeGetService {
 
                 return new NoticeResponse(noticeResponses);
             } else {
-                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByTitleContainsAndNoticeTypeAndStarGreaterThanEqualOrderByCreateTimeDesc(title, star)
+                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByTitleContainsAndNoticeTypeAndStarGreaterThanEqualOrderByCreateTimeDesc(title, NoticeType.POST, star)
                         .stream()
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()
@@ -70,7 +70,7 @@ public class NoticeGetService {
             }
         } else {
             if (Objects.equals(title, "")) {
-                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarGreaterThanEqualAndNoticeTypeOrderByStarDesc(star)
+                List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByStarGreaterThanEqualAndNoticeTypeOrderByStarDesc(star, NoticeType.POST)
                         .stream()
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()

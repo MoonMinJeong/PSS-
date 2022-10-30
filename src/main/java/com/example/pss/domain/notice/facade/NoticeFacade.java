@@ -6,7 +6,6 @@ import com.example.pss.domain.notice.exception.NoticeNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -19,5 +18,5 @@ public class NoticeFacade {
                 .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
     }
 
-    
+
 }

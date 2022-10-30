@@ -12,7 +12,7 @@ import java.util.List;
 import static com.example.pss.domain.notice.domain.QNotice.notice;
 
 @RequiredArgsConstructor
-public class NoticeCustomService implements NoticeCustom{
+public class NoticeCustomService implements NoticeCustom {
     private final JPAQueryFactory query;
     private final StarFacade starFacade;
 

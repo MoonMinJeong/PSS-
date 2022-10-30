@@ -21,30 +21,30 @@ public class StarFacade {
         float result = 0;
         List<Star> stars = starRepository.findAllByNotice(notice);
 
-        for(int i=0; i<stars.size(); i++) {
+        for (int i = 0; i < stars.size(); i++) {
             result = (result + stars.get(i).getStars());
         }
 
-        if(stars.isEmpty()) {
+        if (stars.isEmpty()) {
             return 0;
         }
 
-        float rst = (result/(float)stars.size());
+        float rst = (result / (float) stars.size());
 
         return rst;
     }
 
     public float findByNoticeAndUser(Notice notice, User user) {
-            Star star = starRepository.findByNoticeAndUser(notice, user)
-                    .orElseThrow(() -> StarNotFoundException.EXCEPTION);
+        Star star = starRepository.findByNoticeAndUser(notice, user)
+                .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
-            return star.getStars();
+        return star.getStars();
     }
-    
+
     public List<Notice> findNoticesByStar(User user) {
         List<Notice> notices = new ArrayList<>();
 
-        for(int i=0; i<starRepository.findAllByUser(user).size(); i++) {
+        for (int i = 0; i < starRepository.findAllByUser(user).size(); i++) {
             notices.add(starRepository.findAllByUser(user).get(i).getNotice());
         }
 

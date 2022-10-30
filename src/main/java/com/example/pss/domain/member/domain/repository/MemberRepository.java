@@ -10,7 +10,10 @@ import java.util.UUID;
 
 public interface MemberRepository extends CrudRepository<Member, UUID> {
     List<Member> findAllByNotice(Notice notice);
+
     Optional<Member> findByNicknameAndNotice(String nickname, Notice notice);
+
     List<Member> deleteAllByNotice(Notice notice);
+
     Optional<Member> findByNickname(String nickname);
 }

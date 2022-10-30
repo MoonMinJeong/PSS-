@@ -11,6 +11,8 @@ import java.util.UUID;
 
 public interface ReplyRepository extends CrudRepository<Reply, UUID> {
     Optional<Reply> findReplyById(UUID id);
+
     List<Reply> deleteAllByNotice(Notice notice);
+
     List<Reply> deleteAllByComment(Comment comment);
 }

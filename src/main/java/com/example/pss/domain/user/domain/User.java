@@ -17,7 +17,8 @@ import java.util.UUID;
 @Table(name = "tbl_user")
 @Entity
 public class User extends BaseTimeEntity {
-    @Id @GeneratedValue(generator = "uuid2")
+    @Id
+    @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(columnDefinition = "BINARY(16)")
     private UUID id;

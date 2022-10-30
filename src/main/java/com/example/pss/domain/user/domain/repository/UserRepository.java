@@ -9,6 +9,8 @@ import java.util.UUID;
 
 public interface UserRepository extends CrudRepository<User, UUID> {
     Optional<User> findByNickname(String nickname);
+
     Optional<User> findByEmail(String email);
+
     List<User> findByNicknameContaining(String nickname);
 }

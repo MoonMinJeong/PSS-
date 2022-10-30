@@ -3,7 +3,6 @@ package com.example.pss.domain.user.service;
 import com.example.pss.domain.like.domain.repository.LikeRepository;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.domain.type.NoticeType;
-import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;

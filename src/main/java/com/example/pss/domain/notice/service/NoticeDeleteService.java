@@ -26,7 +26,7 @@ public class NoticeDeleteService {
     private final StackRepository stackRepository;
     private final StarRepository starRepository;
     private final MemberRepository memberRepository;
-    
+
     @Transactional
     public void delete(UUID uuid) {
         Notice notice = noticeFacade.findById(uuid);

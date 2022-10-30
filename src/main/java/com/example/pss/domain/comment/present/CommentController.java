@@ -2,7 +2,6 @@ package com.example.pss.domain.comment.present;
 
 import com.example.pss.domain.comment.present.dto.CommentRequest;
 import com.example.pss.domain.comment.service.CommentService;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

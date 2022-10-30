@@ -2,7 +2,6 @@ package com.example.pss.domain.comment.present.dto.response;
 
 import com.example.pss.domain.reply.domain.Reply;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -20,7 +19,7 @@ public class CommentResponse {
 
     @Getter
     @AllArgsConstructor
-    public static class ReplyDto{
+    public static class ReplyDto {
         private final UUID id;
         private final String nickname;
         private final String content;
@@ -35,7 +34,7 @@ public class CommentResponse {
         this.imageUrl = imageUrl;
         this.isMine = isMine;
         this.replyDtoList = new ArrayList<>();
-        for(Reply reply : list) {
+        for (Reply reply : list) {
             replyDtoList.add(new ReplyDto(reply.getId(), reply.getUser().getNickname(), reply.getContent(), reply.getUser().getImageUrl(), reply.isMine()));
         }
     }
