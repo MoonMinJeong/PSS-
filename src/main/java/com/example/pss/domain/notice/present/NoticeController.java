@@ -25,6 +25,7 @@ public class NoticeController {
     private final NoticeIntroService noticeIntroService;
     private final NoticeSaveService noticeSaveService;
     private final NoticeSaveListService noticeSaveListService;
+    private final NoticeReviewCreateService noticeReviewCreateService;
 
     @PostMapping
     public NoticeIdResponse create(@RequestBody @Valid CreateRequest request) {
@@ -34,6 +35,11 @@ public class NoticeController {
     @PostMapping("/save")
     public NoticeIdResponse save(@RequestBody @Valid CreateRequest request) {
         return noticeSaveService.save(request);
+    }
+
+    @PostMapping("/review")
+    public NoticeIdResponse review(@RequestBody @Valid CreateRequest request) {
+        return noticeReviewCreateService.save(request);
     }
 
     @PutMapping("/{id}")

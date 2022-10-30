@@ -3,6 +3,7 @@ package com.example.pss.domain.user.present;
 import com.example.pss.domain.user.present.dto.TokenResponse;
 import com.example.pss.domain.user.present.dto.UserListResponse;
 import com.example.pss.domain.user.present.dto.UserProfileResponse;
+import com.example.pss.domain.user.present.dto.UserReviewResponse;
 import com.example.pss.domain.user.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/profile/my")
-    public UserProfileResponse getMyPost() {
+    public UserReviewResponse getMyPost() {
         return userMyPostGetService.getMyPost();
     }
 
