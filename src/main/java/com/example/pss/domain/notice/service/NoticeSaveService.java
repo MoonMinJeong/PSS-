@@ -38,7 +38,7 @@ public class NoticeSaveService {
                         .title(request.getTitle())
                         .content(request.getContent())
                         .imageUrl(request.getImageUrl())
-                        .noticeType(NoticeType.SAVE)
+                        .noticeType(NoticeType.POST)
                         .star(0)
                         .viewCount(0)
                         .introduction(request.getContent().substring(20))

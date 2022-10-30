@@ -3,7 +3,6 @@ package com.example.pss.domain.notice.domain.repository;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.type.NoticeType;
 import com.example.pss.domain.user.domain.User;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
@@ -16,8 +15,8 @@ public interface NoticeRepository extends CrudRepository<Notice, UUID>, NoticeCu
 
     List<Notice> findAllByUserAndNoticeType(User user, NoticeType noticeType);
 
-    List<Notice> findAllByTitleContainsAndStarGreaterThanEqualOrderByCreateTimeDesc(String title, float star);
-    List<Notice> findAllByStarGreaterThanEqualOrderByCreateTimeDesc(float star);
-    List<Notice> findAllByTitleContainsAndStarGreaterThanEqualOrderByStarDesc(String title, float star);
-    List<Notice> findAllByStarGreaterThanEqualOrderByStarDesc(float star);
+    List<Notice> findAllByTitleContainsAndNoticeTypeAndStarGreaterThanEqualOrderByCreateTimeDesc(String title, NoticeType noticeType, float star);
+    List<Notice> findAllByStarGreaterThanEqualAndNoticeTypeOrderByCreateTimeDesc(float star, NoticeType noticeType);
+    List<Notice> findAllByTitleContainsAndNoticeTypeAndStarGreaterThanEqualOrderByStarDesc(String title, NoticeType noticeType, float star);
+    List<Notice> findAllByStarGreaterThanEqualAndNoticeTypeOrderByStarDesc(float star, NoticeType noticeType);
 }
