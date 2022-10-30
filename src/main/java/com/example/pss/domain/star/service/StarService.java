@@ -23,6 +23,7 @@ public class StarService {
     private final NoticeFacade noticeFacade;
     private final StarFacade starFacade;
 
+    @Transactional
     public void create(UUID noticeId, StarRequest request) {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
@@ -41,10 +42,13 @@ public class StarService {
     @Transactional
     public void update(UUID noticeId, StarRequest request) {
         User user = userFacade.getCurrentUser();
+        Notice notice = noticeFacade.findById(noticeId);
 
         Star star = starRepository.findByNoticeAndUser(noticeFacade.findById(noticeId), user)
                 .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
         star.update(request.getStars());
+        notice.updateStar(starFacade.findAllByNotice(notice));
+
     }
 }

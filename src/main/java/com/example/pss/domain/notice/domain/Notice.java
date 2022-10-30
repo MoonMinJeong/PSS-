@@ -20,6 +20,7 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "tbl_notice")
 @Entity
 public class Notice extends BaseTimeEntity {
     @Id
@@ -53,8 +54,7 @@ public class Notice extends BaseTimeEntity {
     @Column
     private boolean isMine;
 
-    @Column(name = "notice_type")
-    @Enumerated(EnumType.STRING)
+    @Column
     private NoticeType noticeType;
 
     @ManyToOne(fetch = FetchType.LAZY)

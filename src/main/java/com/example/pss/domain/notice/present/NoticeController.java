@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.UUID;
 
+@Slf4j
 @RequestMapping("/notice")
 @RestController
 @RequiredArgsConstructor
@@ -47,9 +48,9 @@ public class NoticeController {
 
     @GetMapping
     public NoticeResponse getNotice(
-            @RequestParam(value = "sort", defaultValue = "time") String sort,
-            @RequestParam(value = "star", defaultValue = "0") float star,
-            @RequestParam(value = "title", defaultValue = "") String title
+            @RequestParam(value = "sort", defaultValue = "time", required = false) String sort,
+            @RequestParam(value = "star", defaultValue = "0", required = false) float star,
+            @RequestParam(value = "title", defaultValue = "", required = false) String title
     ) {
         return noticeGetService.getNotice(sort, star, title);
     }
@@ -63,4 +64,6 @@ public class NoticeController {
     public void delete(@PathVariable("id") UUID uuid) {
         noticeDeleteService.delete(uuid);
     }
+
+    
 }

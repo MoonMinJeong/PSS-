@@ -1,6 +1,5 @@
 package com.example.pss.domain.notice.present.dto.response;
 
-import com.example.pss.domain.stack.domain.Stack;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

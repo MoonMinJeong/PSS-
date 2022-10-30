@@ -8,6 +8,7 @@ import com.example.pss.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -38,5 +39,15 @@ public class StarFacade {
                     .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
             return star.getStars();
+    }
+    
+    public List<Notice> findNoticesByStar(User user) {
+        List<Notice> notices = new ArrayList<>();
+
+        for(int i=0; i<starRepository.findAllByUser(user).size(); i++) {
+            notices.add(starRepository.findAllByUser(user).get(i).getNotice());
+        }
+
+        return notices;
     }
 }

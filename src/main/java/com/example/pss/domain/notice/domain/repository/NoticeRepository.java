@@ -13,4 +13,5 @@ import java.util.UUID;
 public interface NoticeRepository extends CrudRepository<Notice, UUID>, NoticeCustom {
     Optional<Notice> findById(UUID noticeId);
     List<Notice> findAllByNoticeTypeAndUser(NoticeType noticeType, User user);
+    List<Notice> findAllByUserAndNoticeType(User user, NoticeType noticeType);
 }
