@@ -45,7 +45,7 @@ public class MemberFacade {
                 Member member = memberRepository.findByNicknameAndNotice(nickname, notice)
                         .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-                memberRepository.delete(member);
+                members.add(member);
             }
         }
 

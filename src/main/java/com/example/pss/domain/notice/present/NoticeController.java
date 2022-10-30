@@ -2,10 +2,12 @@ package com.example.pss.domain.notice.present;
 
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
 import com.example.pss.domain.notice.present.dto.request.UpdateRequest;
+import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import com.example.pss.domain.notice.service.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,40 +22,41 @@ public class NoticeController {
     private final NoticeDeleteService noticeDeleteService;
     private final NoticeGetService noticeGetService;
     private final NoticeIntroService noticeIntroService;
+    private final NoticeSaveService noticeSaveService;
+    private final NoticeSaveListService noticeSaveListService;
 
     @PostMapping
-    public void create(@RequestBody @Valid CreateRequest request) {
-        noticeCreateService.create(request);
+    public NoticeIdResponse create(@RequestBody @Valid CreateRequest request) {
+        return noticeCreateService.create(request);
+    }
+
+    @PostMapping("/save")
+    public NoticeIdResponse save(@RequestBody @Valid CreateRequest request) {
+        return noticeSaveService.save(request);
     }
 
     @PutMapping("/{id}")
     public void update(@RequestBody @Valid UpdateRequest request, @PathVariable("id") UUID uuid) {
         noticeUpdateService.update(request, uuid);
     }
-    
+
     @GetMapping("/{id}")
     public NoticeOneResponse getOne(@PathVariable("id") UUID noticeId) {
         return noticeIntroService.getNotice(noticeId);
     }
 
-    @GetMapping("/time")
-    public NoticeResponse getListByTime() {
-        return noticeGetService.getListByTime();
+    @GetMapping
+    public NoticeResponse getNotice(
+            @RequestParam(value = "sort", defaultValue = "time") String sort,
+            @RequestParam(value = "star", defaultValue = "0") float star,
+            @RequestParam(value = "title", defaultValue = "") String title
+    ) {
+        return noticeGetService.getNotice(sort, star, title);
     }
 
-    @GetMapping("/star")
-    public NoticeResponse getListByStar() {
-        return noticeGetService.getListByStar();
-    }
-
-    @GetMapping("/star/{title}")
-    public NoticeResponse getListByTitleOrderByStar(@PathVariable("title") String title) {
-        return noticeGetService.getListByTitleOrderByStar(title);
-    }
-
-    @GetMapping("/time/{title}")
-    public NoticeResponse getListByTitleOrderByTime(@PathVariable("title") String title) {
-        return noticeGetService.getListByTitleOrderByTime(title);
+    @GetMapping("/save")
+    public NoticeResponse getSave() {
+        return noticeSaveListService.saveList();
     }
 
     @DeleteMapping("/{id}")

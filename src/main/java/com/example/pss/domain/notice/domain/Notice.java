@@ -1,6 +1,7 @@
 package com.example.pss.domain.notice.domain;
 
 import com.example.pss.domain.member.domain.Member;
+import com.example.pss.domain.notice.domain.type.NoticeType;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.global.entity.BaseTimeEntity;
@@ -19,7 +20,6 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "tbl_notice")
 @Entity
 public class Notice extends BaseTimeEntity {
     @Id
@@ -42,7 +42,7 @@ public class Notice extends BaseTimeEntity {
     private String content;
 
     @Column
-    private Float star;
+    private float star;
 
     @Column
     private Integer viewCount;
@@ -52,6 +52,10 @@ public class Notice extends BaseTimeEntity {
 
     @Column
     private boolean isMine;
+
+    @Column(name = "notice_type")
+    @Enumerated(EnumType.STRING)
+    private NoticeType noticeType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -65,7 +69,7 @@ public class Notice extends BaseTimeEntity {
 
 
     @Builder
-    public Notice(String title, String content, String imageUrl, Float star, Integer viewCount, String introduction, boolean isMine, User user) {
+    public Notice(String title, String content, String imageUrl, float star, Integer viewCount, String introduction, boolean isMine, User user, NoticeType noticeType) {
         this.title = title;
         this.content = content;
         this.imageUrl = imageUrl;
@@ -74,6 +78,7 @@ public class Notice extends BaseTimeEntity {
         this.viewCount = viewCount;
         this.isMine = isMine;
         this.user = user;
+        this.noticeType = noticeType;
     }
 
     public void UpdateNotice(String title, String content, List<Stack> stacks, List<Member> members) {
@@ -90,5 +95,9 @@ public class Notice extends BaseTimeEntity {
     public void updateList(List<Stack> stacks, List<Member> members) {
         this.stacks = stacks;
         this.members = members;
+    }
+
+    public void updateStar(float star) {
+        this.star = star;
     }
 }

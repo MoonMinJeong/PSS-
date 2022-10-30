@@ -27,7 +27,7 @@ public class NoticeResponse {
         private List<String> stacks;
 
         private Integer viewCount;
-        private Float stars;
+        private float stars;
         private Integer likes;
 
         private boolean isMine;

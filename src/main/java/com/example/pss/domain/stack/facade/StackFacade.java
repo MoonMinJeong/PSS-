@@ -37,15 +37,6 @@ public class StackFacade {
     }
 
     public List<Stack> findByList(List<String> list, Notice notice) {
-
-        List<Stack> originStacks = stackRepository.findAllByNotice(notice)
-                .stream()
-                .map(stack -> Stack.builder()
-                        .techName(stack.getTechName())
-                        .notice(stack.getNotice()).build()
-                )
-                .collect(Collectors.toList());
-
         List<Stack> stacks = new ArrayList<>();
 
         for(String techName : list) {
