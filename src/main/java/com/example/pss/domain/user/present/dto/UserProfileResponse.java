@@ -12,7 +12,8 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 public class UserProfileResponse {
-    private List<com.example.pss.domain.notice.present.dto.response.NoticeResponse.NoticeDto> noticeList;
+    private List<NoticeDto> noticeList;
+    private List<NoticeDto> reviewList;
     private String profileImage;
     private String nickname;
     private String email;

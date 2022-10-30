@@ -3,7 +3,6 @@ package com.example.pss.domain.user.service;
 import com.example.pss.domain.like.domain.repository.LikeRepository;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.domain.type.NoticeType;
-import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
@@ -27,10 +26,30 @@ public class UserMyPostGetService {
     public UserProfileResponse getMyPost() {
         User user = userFacade.getCurrentUser();
 
-        List<NoticeResponse.NoticeDto> noticeResponses = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.POST)
+        List<UserProfileResponse.NoticeDto> noticeResponses = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.POST)
                 .stream()
                 .map(notice ->
-                        NoticeResponse.NoticeDto.builder()
+                        UserProfileResponse.NoticeDto.builder()
+                                .noticeId(notice.getId())
+                                .title(notice.getTitle())
+                                .imageUrl(notice.getImageUrl())
+                                .introduction(notice.getIntroduction())
+                                .viewCount(notice.getViewCount())
+                                .stars(starFacade.findAllByNotice(notice))
+                                .likes(likeRepository.findAllByNotice(notice).size())
+                                .isMine(notice.isMine())
+                                .nickname(notice.getUser().getNickname())
+                                .profileImage(notice.getUser().getImageUrl())
+                                .stacks(stackFacade.findAllByNotice(notice))
+                                .createTime(notice.getCreateTime())
+                                .build()
+                )
+                .collect(Collectors.toList());
+
+        List<UserProfileResponse.NoticeDto> noticeResponses2 = noticeRepository.findAllByUserAndNoticeType(user, NoticeType.REVIEW)
+                .stream()
+                .map(notice ->
+                        UserProfileResponse.NoticeDto.builder()
                                 .noticeId(notice.getId())
                                 .title(notice.getTitle())
                                 .imageUrl(notice.getImageUrl())
@@ -52,6 +71,7 @@ public class UserMyPostGetService {
                 .email(user.getEmail())
                 .profileImage(user.getImageUrl())
                 .nickname(user.getNickname())
+                .reviewList(noticeResponses2)
                 .noticeList(noticeResponses)
                 .build();
     }

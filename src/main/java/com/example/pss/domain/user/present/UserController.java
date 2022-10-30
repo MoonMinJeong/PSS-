@@ -1,6 +1,5 @@
 package com.example.pss.domain.user.present;
 
-import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
 import com.example.pss.domain.user.present.dto.TokenResponse;
 import com.example.pss.domain.user.present.dto.UserListResponse;
 import com.example.pss.domain.user.present.dto.UserProfileResponse;
@@ -23,14 +22,14 @@ public class UserController {
 
     @GetMapping("/auth/github/callback")
     public TokenResponse code(String code) throws IOException, org.json.simple.parser.ParseException {
-         return userSignService.getCode(code);
+        return userSignService.getCode(code);
     }
 
     @GetMapping("/login/oauth2/code/google")
     public String get(String code) {
         return code;
     }
-    
+
     @GetMapping("/user")
     public UserListResponse userList(@RequestParam String nickname) {
         return searchUserService.userList(nickname);
