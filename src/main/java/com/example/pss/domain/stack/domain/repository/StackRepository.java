@@ -11,4 +11,8 @@ public interface StackRepository extends CrudRepository<Stack, Long> {
     Optional<Stack> findByTechName(String name);
 
     List<Stack> findAllByNotice(Notice notice);
+
+    Optional<Stack> findByTechNameAndNotice(String name, Notice notice);
+
+    List<Stack> deleteAllByNotice(Notice notice);
 }

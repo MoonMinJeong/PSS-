@@ -15,18 +15,18 @@ import java.util.UUID;
 public class ReplyController {
     private final ReplyService replyService;
 
-    @PostMapping("/{commentId}")
-    public void create(@PathVariable("commentId") @NonNull UUID commentId, @RequestBody @Valid ReplyRequest request) {
-        replyService.create(commentId, request);
+    @PostMapping("/{id}")
+    public void create(@PathVariable("id") UUID id, @RequestBody @Valid ReplyRequest request) {
+        replyService.create(id, request);
     }
 
     @PutMapping("/{replyId}")
-    public void update(@PathVariable("replyId") @NonNull UUID replyId, @RequestBody @Valid ReplyRequest request) {
+    public void update(@PathVariable("replyId") UUID replyId, @RequestBody @Valid ReplyRequest request) {
         replyService.update(replyId, request);
     }
 
-    @DeleteMapping("/{replyId}")
-    public void delete(@PathVariable("replyId") @NonNull UUID replyId) {
-        
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") UUID id) {
+        replyService.delete(id);
     }
 }

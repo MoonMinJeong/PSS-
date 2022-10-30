@@ -56,7 +56,7 @@ public class NoticeIntroService {
                 .noticeId(notice.getId())
                 .title(notice.getTitle())
                 .content(notice.getContent())
-                .imageUrl(notice.getImageUrl())
+                .likes(likeRepository.findAllByNotice(notice).size())
                 .stars(starFacade.findAllByNotice(notice))
                 .stacks(stackFacade.findAllByNotice(notice))
                 .nicknames(memberFacade.findAllByNotice(notice))

@@ -16,17 +16,17 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{noticeId}")
-    public void create(@PathVariable("noticeId") @NonNull UUID noticeId, @RequestBody @Valid CommentRequest request) {
+    public void create(@PathVariable("noticeId") UUID noticeId, @RequestBody @Valid CommentRequest request) {
         commentService.create(noticeId, request);
     }
 
     @PutMapping("/{commentId}")
-    public void update(@PathVariable("commentId") @NonNull UUID commentId, @RequestBody @Valid CommentRequest request) {
+    public void update(@PathVariable("commentId") UUID commentId, @RequestBody @Valid CommentRequest request) {
         commentService.update(commentId, request);
     }
 
     @DeleteMapping("/{commentId}")
-    public void delete(@PathVariable("commentId") @NonNull UUID commentId) {
+    public void delete(@PathVariable("commentId") UUID commentId) {
         commentService.delete(commentId);
     }
 }

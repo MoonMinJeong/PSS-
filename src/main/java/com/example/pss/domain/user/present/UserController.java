@@ -26,7 +26,7 @@ public class UserController {
     public String get(String code) {
         return code;
     }
-
+    
     @GetMapping("/user")
     public UserListResponse userList(@RequestParam String nickname) {
         return searchUserService.userList(nickname);

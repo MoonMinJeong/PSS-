@@ -41,12 +41,12 @@ public class ReplyService {
     public void update(UUID replyId, ReplyRequest request) {
         Reply reply = replyFacade.findById(replyId);
 
-        reply.update(reply.getContent());
+        reply.update(request.getContent());
     }
 
     @Transactional
-    public void delete(UUID replyId) {
-        Reply reply = replyFacade.findById(replyId);
+    public void delete(UUID id) {
+        Reply reply = replyFacade.findById(id);
 
         replyRepository.delete(reply);
     }
