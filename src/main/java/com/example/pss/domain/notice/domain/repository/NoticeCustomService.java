@@ -21,7 +21,8 @@ public class NoticeCustomService implements NoticeCustom{
         return query.selectFrom(notice)
                 .where(notice.title.contains(title)
                         .and(notice.star.goe(star))
-                        .and(notice.noticeType.eq(NoticeType.POST)))
+                        .and(notice.noticeType.ne(NoticeType.SAVE))
+                )
                 .orderBy(notice.createTime.desc())
                 .fetch();
     }
@@ -31,7 +32,7 @@ public class NoticeCustomService implements NoticeCustom{
         return query.selectFrom(notice)
                 .where(notice.title.contains(title)
                         .and(notice.star.goe(star))
-                        .and(notice.noticeType.eq(NoticeType.POST))
+                        .and(notice.noticeType.ne(NoticeType.SAVE))
                 )
                 .orderBy(notice.star.desc())
                 .fetch();
@@ -40,7 +41,7 @@ public class NoticeCustomService implements NoticeCustom{
     @Override
     public List<Notice> findAllByStarOrderByCreateTime(float star) {
         return query.selectFrom(notice)
-                .where(notice.star.goe(star).and(notice.noticeType.eq(NoticeType.POST)))
+                .where(notice.star.goe(star).and(notice.noticeType.ne(NoticeType.SAVE)))
                 .orderBy(notice.createTime.desc())
                 .fetch();
     }
@@ -48,7 +49,7 @@ public class NoticeCustomService implements NoticeCustom{
     @Override
     public List<Notice> findAllByStarOrderByStar(float star) {
         return query.selectFrom(notice)
-                .where(notice.star.goe(star).and(notice.noticeType.eq(NoticeType.POST)))
+                .where(notice.star.goe(star).and(notice.noticeType.ne(NoticeType.SAVE)))
                 .orderBy(notice.star.desc())
                 .fetch();
     }
