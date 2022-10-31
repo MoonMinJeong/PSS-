@@ -37,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/profile/my")
-    public UserReviewResponse getMyPost() {
+    public UserProfileResponse getMyPost() {
         return userMyPostGetService.getMyPost();
     }
 

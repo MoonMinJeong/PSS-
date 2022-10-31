@@ -38,17 +38,16 @@ public class StarService {
 
         notice.updateStar(starFacade.findAllByNotice(notice));
     }
-
+    
     @Transactional
     public void update(UUID noticeId, StarRequest request) {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
 
-        Star star = starRepository.findByNoticeAndUser(noticeFacade.findById(noticeId), user)
+        Star star = starRepository.findByNoticeAndUser(notice, user)
                 .orElseThrow(() -> StarNotFoundException.EXCEPTION);
 
         star.update(request.getStars());
         notice.updateStar(starFacade.findAllByNotice(notice));
-
     }
 }

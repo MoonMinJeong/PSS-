@@ -48,26 +48,30 @@ public class NoticeCreateService {
         );
 
         for (String tech : request.getStacks()) {
-            stack.add(
-                    stackRepository.save(
-                            Stack.builder()
-                                    .techName(tech)
-                                    .notice(notice)
-                                    .build()
-                    )
-            );
+            if (stackRepository.findByTechNameAndNotice(tech, notice).isEmpty()) {
+                stack.add(
+                        stackRepository.save(
+                                Stack.builder()
+                                        .techName(tech)
+                                        .notice(notice)
+                                        .build()
+                        )
+                );
+            }
         }
 
         for (String nickname : request.getNicknames()) {
-            members.add(
-                    memberRepository.save(
-                            Member.builder()
-                                    .nickname(nickname)
-                                    .user(user)
-                                    .notice(notice)
-                                    .build()
-                    )
-            );
+            if (memberRepository.findByNicknameAndNotice(nickname, notice).isEmpty()) {
+                members.add(
+                        memberRepository.save(
+                                Member.builder()
+                                        .nickname(nickname)
+                                        .user(user)
+                                        .notice(notice)
+                                        .build()
+                        )
+                );
+            }
         }
 
         notice.updateList(stack, members);

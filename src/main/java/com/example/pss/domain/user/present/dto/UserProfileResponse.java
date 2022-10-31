@@ -13,7 +13,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserProfileResponse {
     private List<NoticeDto> noticeList;
-    private List<NoticeDto> reviewList;
     private String profileImage;
     private String nickname;
     private String email;

@@ -35,10 +35,12 @@ public class StarFacade {
     }
 
     public float findByNoticeAndUser(Notice notice, User user) {
-        Star star = starRepository.findByNoticeAndUser(notice, user)
-                .orElseThrow(() -> StarNotFoundException.EXCEPTION);
-
-        return star.getStars();
+        if(starRepository.findByNoticeAndUser(notice, user).isPresent()) {
+            Star star = starRepository.findByNoticeAndUser(notice, user)
+                    .orElseThrow(() -> StarNotFoundException.EXCEPTION);
+            return star.getStars();
+        }
+        return 0;
     }
 
     public List<Notice> findNoticesByStar(User user) {
