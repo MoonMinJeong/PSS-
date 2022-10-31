@@ -3,6 +3,7 @@ package com.example.pss.domain.member.facade;
 import com.example.pss.domain.member.domain.Member;
 import com.example.pss.domain.member.domain.repository.MemberRepository;
 import com.example.pss.domain.notice.domain.Notice;
+import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class MemberFacade {
 
     public List<Member> findByList(List<String> list, Notice notice, User user) {
         List<Member> members = new ArrayList<>();
+        List<Member> members1 = memberRepository.findAllByNotice(notice);
 
         for (String nickname : list) {
             if (memberRepository.findByNicknameAndNotice(nickname, notice).isEmpty()) {
@@ -49,6 +51,15 @@ public class MemberFacade {
             }
         }
 
+        for(Member member : members1) {
+            for(Member member1 : members) {
+                if(member.getNickname().equals(member1.getNickname()) && !member.getNickname().isEmpty()) {
+                    members1.remove(member);
+                }
+            }
+        }
+
+        memberRepository.deleteAll(members1);
         return members;
     }
 }

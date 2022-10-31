@@ -37,6 +37,7 @@ public class StackFacade {
 
     public List<Stack> findByList(List<String> list, Notice notice) {
         List<Stack> stacks = new ArrayList<>();
+        List<Stack> stacks1 = stackRepository.findAllByNotice(notice);
 
         for (String techName : list) {
             if (stackRepository.findByTechNameAndNotice(techName, notice).isEmpty()) {
@@ -56,6 +57,15 @@ public class StackFacade {
             }
         }
 
+        for (Stack stack : stacks1) {
+            for (Stack stack1 : stacks) {
+                if (stack.getTechName().equals(stack1.getTechName()) && !stack.getTechName().isEmpty()) {
+                    stacks1.remove(stack);
+                }
+            }
+        }
+
+        stackRepository.deleteAll(stacks1);
         return stacks;
     }
 }
