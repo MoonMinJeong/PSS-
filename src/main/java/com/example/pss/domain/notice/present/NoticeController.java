@@ -70,6 +70,4 @@ public class NoticeController {
     public void delete(@PathVariable("id") UUID uuid) {
         noticeDeleteService.delete(uuid);
     }
-
-
 }

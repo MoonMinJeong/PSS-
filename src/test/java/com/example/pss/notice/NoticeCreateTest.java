@@ -1,8 +1,10 @@
 package com.example.pss.notice;
 
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
+import com.example.pss.domain.notice.service.NoticeCreateService;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +18,12 @@ public class NoticeCreateTest {
 
     @Mock
     private NoticeRepository noticeRepository;
-    
+
+    @InjectMocks
+    private NoticeCreateService noticeCreateService;
+
     @Test
     public void createNoticeCase() throws Exception{
-
+        
     }
 }

@@ -35,9 +35,9 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
 
-                .antMatchers(HttpMethod.POST, "/notice").permitAll()
+                .antMatchers(HttpMethod.GET, "/auth/github/callback").permitAll()
 
-                .anyRequest().permitAll()
+                .anyRequest().authenticated()
 
                 .and()
                 .apply(new FilterConfig(jwtTokenProvider, objectMapper))
