@@ -5,7 +5,9 @@ import com.example.pss.domain.member.domain.repository.MemberRepository;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.domain.type.NoticeType;
+import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
+import com.example.pss.domain.notice.present.dto.request.CreateReviewRequest;
 import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
@@ -17,28 +19,29 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
 public class NoticeReviewCreateService {
     private final NoticeRepository noticeRepository;
+    private final NoticeFacade noticeFacade;
     private final MemberRepository memberRepository;
     private final StackRepository stackRepository;
     private final UserFacade userFacade;
 
     @Transactional
-    public NoticeIdResponse save(CreateRequest request) {
+    public NoticeIdResponse save(CreateReviewRequest request, UUID noticeId) {
         User user = userFacade.getCurrentUser();
 
-        List<Stack> stack = new ArrayList<>();
-        List<Member> members = new ArrayList<>();
+        Notice notices = noticeFacade.findById(noticeId);
 
         Notice notice = noticeRepository.save(
                 Notice.builder()
-                        .title(request.getTitle())
+                        .title(notices.getTitle() + "의 회고록")
                         .content(request.getContent())
                         .imageUrl(request.getImageUrl())
-                        .noticeType(NoticeType.REVIEW)
+                        .noticeType(NoticeType.POST)
                         .star(0)
                         .viewCount(0)
                         .introduction(request.getContent().substring(20))
@@ -47,30 +50,33 @@ public class NoticeReviewCreateService {
                         .build()
         );
 
-        for (String tech : request.getStacks()) {
-            stack.add(
-                    stackRepository.save(
-                            Stack.builder()
-                                    .techName(tech)
-                                    .notice(notice)
-                                    .build()
-                    )
-            );
+        List<Stack> stackList = new ArrayList<>();
+        List<Member> memberList = new ArrayList<>();
+
+        for (Stack tech : notices.getStacks()) {
+                stackList.add(
+                        stackRepository.save(
+                                Stack.builder()
+                                        .techName(tech.getTechName())
+                                        .notice(notice)
+                                        .build()
+                        )
+                );
         }
 
-        for (String nickname : request.getNicknames()) {
-            members.add(
-                    memberRepository.save(
-                            Member.builder()
-                                    .nickname(nickname)
-                                    .user(user)
-                                    .notice(notice)
-                                    .build()
-                    )
-            );
+        for (Member nickname : notices.getMembers()) {
+                memberList.add(
+                        memberRepository.save(
+                                Member.builder()
+                                        .nickname(nickname.getNickname())
+                                        .user(user)
+                                        .notice(notice)
+                                        .build()
+                        )
+                );
         }
 
-        notice.updateList(stack, members);
+        notice.updateList(stackList, memberList);
         return new NoticeIdResponse(notice.getId());
     }
 }
