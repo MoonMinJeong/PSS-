@@ -1,6 +1,7 @@
 package com.example.pss.domain.notice.present;
 
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
+import com.example.pss.domain.notice.present.dto.request.CreateReviewRequest;
 import com.example.pss.domain.notice.present.dto.request.UpdateRequest;
 import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
@@ -37,9 +38,9 @@ public class NoticeController {
         return noticeSaveService.save(request);
     }
 
-    @PostMapping("/review")
-    public NoticeIdResponse review(@RequestBody @Valid CreateRequest request) {
-        return noticeReviewCreateService.save(request);
+    @PostMapping("/review/{noticeId}")
+    public NoticeIdResponse review(@RequestBody @Valid CreateReviewRequest request, @PathVariable("noticeId") UUID noticeId) {
+        return noticeReviewCreateService.save(request, noticeId);
     }
 
     @PutMapping("/{id}")
