@@ -1,7 +1,9 @@
 package com.example.pss.domain.notice.domain.repository;
 
+import com.example.pss.domain.member.domain.Member;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.type.NoticeType;
+import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
 import org.springframework.data.repository.CrudRepository;
 

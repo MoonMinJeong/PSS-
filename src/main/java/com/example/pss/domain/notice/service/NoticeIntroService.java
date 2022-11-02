@@ -7,6 +7,7 @@ import com.example.pss.domain.member.facade.MemberFacade;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
+import com.example.pss.domain.review.domain.repository.ReviewRepository;
 import com.example.pss.domain.stack.facade.StackFacade;
 import com.example.pss.domain.star.domain.repository.StarRepository;
 import com.example.pss.domain.star.facade.StarFacade;
@@ -30,6 +31,7 @@ public class NoticeIntroService {
     private final StarRepository starRepository;
     private final UserFacade userFacade;
     private final CommentRepository commentRepository;
+    private final ReviewRepository reviewRepository;
     private final LikeRepository likeRepository;
 
     @Transactional
@@ -64,6 +66,7 @@ public class NoticeIntroService {
                 .isMine(notice.isMine())
                 .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                 .isStar(starRepository.findByNoticeAndUser(notice, user).isPresent())
+                .isReviewed(reviewRepository.findByUserAndNotice(user, notice).isPresent())
                 .myStar(starFacade.findByNoticeAndUser(notice, user))
                 .createTime(notice.getCreateTime())
                 .profileImage(notice.getUser().getImageUrl())
