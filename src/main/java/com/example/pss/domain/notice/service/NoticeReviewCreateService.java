@@ -9,6 +9,8 @@ import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
 import com.example.pss.domain.notice.present.dto.request.CreateReviewRequest;
 import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
+import com.example.pss.domain.review.domain.Review;
+import com.example.pss.domain.review.domain.repository.ReviewRepository;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
 import com.example.pss.domain.user.domain.User;
@@ -29,6 +31,7 @@ public class NoticeReviewCreateService {
     private final MemberRepository memberRepository;
     private final StackRepository stackRepository;
     private final UserFacade userFacade;
+    private final ReviewRepository reviewRepository;
 
     @Transactional
     public NoticeIdResponse save(CreateReviewRequest request, UUID noticeId) {
@@ -77,6 +80,14 @@ public class NoticeReviewCreateService {
         }
 
         notice.updateList(stackList, memberList);
+
+        reviewRepository.save(
+                Review.builder()
+                        .user(userFacade.getCurrentUser())
+                        .notice(notices)
+                        .build()
+        );
+
         return new NoticeIdResponse(notice.getId());
     }
 }

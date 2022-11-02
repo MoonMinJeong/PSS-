@@ -27,6 +27,7 @@ public class NoticeOneResponse {
     private boolean isMine;
     private boolean isLike;
     private boolean isStar;
+    private boolean isReviewed;
 
     private float myStar;
 
