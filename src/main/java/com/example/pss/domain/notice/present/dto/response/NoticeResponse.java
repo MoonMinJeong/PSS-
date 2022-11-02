@@ -29,7 +29,7 @@ public class NoticeResponse {
         private float stars;
         private Integer likes;
 
-        private boolean isMine;
+        private Boolean isMine;
 
         private String nickname;
         private String profileImage;
@@ -39,7 +39,7 @@ public class NoticeResponse {
         @QueryProjection
         public NoticeDto(
                 UUID noticeId, String title, String imageUrl, String introduction, Integer viewCount,
-                float stars, Integer likes, String nickname, boolean isMine,
+                float stars, Integer likes, String nickname, Boolean isMine,
                 String profileImage, List<String> stacks, LocalDateTime createTime) {
             this.noticeId = noticeId;
             this.title = title;

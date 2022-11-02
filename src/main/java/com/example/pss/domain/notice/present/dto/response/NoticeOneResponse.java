@@ -24,10 +24,10 @@ public class NoticeOneResponse {
     private List<String> nicknames;
     private Integer viewCount;
 
-    private boolean isMine;
-    private boolean isLike;
-    private boolean isStar;
-    private boolean isReviewed;
+    private Boolean isMine;
+    private Boolean isLike;
+    private Boolean isStar;
+    private Boolean isReviewed;
 
     private float myStar;
 
