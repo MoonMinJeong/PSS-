@@ -12,7 +12,5 @@ import org.springframework.boot.context.properties.ConstructorBinding;
 public class GithubProperties {
     private final String clientId;
     private final String clientSecret;
-    private final String redirect_url;
-    private final String auth_url;
-    private final String token_url;
+    private final String baseUrl;
 }
