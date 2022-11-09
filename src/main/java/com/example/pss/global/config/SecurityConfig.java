@@ -25,18 +25,11 @@ public class SecurityConfig {
                 .and()
                 .csrf().disable()
                 .formLogin().disable()
-
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .oauth2Login()
-                .loginPage("/login")
-
-                .and()
                 .authorizeRequests()
-
-                .antMatchers(HttpMethod.GET, "/auth/github/callback").permitAll()
-
+                .antMatchers(HttpMethod.GET, "/auth").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

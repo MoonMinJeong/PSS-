@@ -24,7 +24,7 @@ public class User extends BaseTimeEntity {
     private UUID id;
 
     @NotNull
-    @Column
+    @Column(unique = true)
     private String nickname;
 
     @NotNull

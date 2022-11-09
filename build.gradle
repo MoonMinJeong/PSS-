@@ -55,6 +55,8 @@ dependencies {
             "com.querydsl:querydsl-apt:5.0.0:jpa")
 
     implementation group: 'org.kohsuke', name: 'github-api', version: '1.125'
+
+    implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '3.1.1'
 }
 
 test {
