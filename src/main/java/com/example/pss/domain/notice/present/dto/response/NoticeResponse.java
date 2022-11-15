@@ -20,6 +20,9 @@ public class NoticeResponse {
     @Builder
     public static class NoticeDto {
         private UUID noticeId;
+
+        private String name;
+
         private String title;
         private String imageUrl;
         private String introduction;
@@ -38,10 +41,11 @@ public class NoticeResponse {
 
         @QueryProjection
         public NoticeDto(
-                UUID noticeId, String title, String imageUrl, String introduction, Integer viewCount,
+                UUID noticeId, String name, String title, String imageUrl, String introduction, Integer viewCount,
                 float stars, Integer likes, String nickname, Boolean isMine,
                 String profileImage, List<String> stacks, LocalDateTime createTime) {
             this.noticeId = noticeId;
+            this.name = name;
             this.title = title;
             this.imageUrl = imageUrl;
             this.introduction = introduction;

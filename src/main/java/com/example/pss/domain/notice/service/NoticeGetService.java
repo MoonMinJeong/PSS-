@@ -29,6 +29,7 @@ public class NoticeGetService {
                         .map(notice ->
                                 NoticeResponse.NoticeDto.builder()
                                         .noticeId(notice.getId())
+                                        .name(notice.getUser().getNickname())
                                         .title(notice.getTitle())
                                         .imageUrl(notice.getImageUrl())
                                         .introduction(notice.getIntroduction())

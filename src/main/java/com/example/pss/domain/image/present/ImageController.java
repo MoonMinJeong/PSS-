@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("image")
+@RequestMapping("/image")
 public class ImageController {
     private final ImageService imageService;
 
