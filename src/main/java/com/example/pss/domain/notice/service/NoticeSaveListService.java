@@ -9,6 +9,7 @@ import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

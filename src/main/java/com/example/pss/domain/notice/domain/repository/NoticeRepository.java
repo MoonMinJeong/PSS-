@@ -5,13 +5,15 @@ import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.type.NoticeType;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface NoticeRepository extends CrudRepository<Notice, UUID>, NoticeCustom {
+public interface NoticeRepository extends JpaRepository<Notice, UUID>, NoticeCustom {
     Optional<Notice> findById(UUID noticeId);
 
     List<Notice> findAllByNoticeTypeAndUser(NoticeType noticeType, User user);

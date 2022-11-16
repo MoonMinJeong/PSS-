@@ -4,6 +4,7 @@ import com.example.pss.domain.reply.domain.Reply;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -15,6 +16,7 @@ public class CommentResponse {
     private final String content;
     private final String imageUrl;
     private final Boolean isMine;
+    private final LocalDateTime createdAt;
     private final List<ReplyDto> replyDtoList;
 
     @Getter
@@ -25,17 +27,19 @@ public class CommentResponse {
         private final String content;
         private final String imageUrl;
         private final Boolean isMine;
+        private final LocalDateTime createdAt;
     }
 
-    public CommentResponse(UUID id, String nickname, String content, String imageUrl, Boolean isMine, List<Reply> list) {
+    public CommentResponse(UUID id, String nickname, String content, String imageUrl, Boolean isMine, LocalDateTime createdAt, List<Reply> list) {
         this.id = id;
         this.nickname = nickname;
         this.content = content;
         this.imageUrl = imageUrl;
         this.isMine = isMine;
+        this.createdAt = createdAt;
         this.replyDtoList = new ArrayList<>();
         for (Reply reply : list) {
-            replyDtoList.add(new ReplyDto(reply.getId(), reply.getUser().getNickname(), reply.getContent(), reply.getUser().getImageUrl(), reply.isMine()));
+            replyDtoList.add(new ReplyDto(reply.getId(), reply.getUser().getNickname(), reply.getContent(), reply.getUser().getImageUrl(), reply.isMine(), reply.getCreateTime()));
         }
     }
 }

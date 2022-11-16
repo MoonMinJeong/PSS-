@@ -50,6 +50,7 @@ public class NoticeIntroService {
                                 comment.getContent(),
                                 comment.getUser().getImageUrl(),
                                 comment.isMine(),
+                                comment.getCreateTime(),
                                 commentRepository.getReplyById(comment.getId())
                         ))
                 .collect(Collectors.toList());
