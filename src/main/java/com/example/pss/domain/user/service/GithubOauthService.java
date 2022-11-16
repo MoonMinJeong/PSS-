@@ -2,6 +2,7 @@ package com.example.pss.domain.user.service;
 
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.domain.repository.UserRepository;
+import com.example.pss.domain.user.present.dto.CodeRequest;
 import com.example.pss.domain.user.present.dto.TokenResponse;
 import com.example.pss.global.enums.Authority;
 import com.example.pss.global.properties.GithubProperties;
@@ -23,12 +24,12 @@ public class GithubOauthService {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public TokenResponse getCode(String code) {
+    public TokenResponse getCode(CodeRequest request) {
 
         String token = "Bearer " + githubAuthClient.GithubAuth(
                 githubProperties.getClientId(),
                 githubProperties.getClientSecret(),
-                code
+                request.getCode()
         ).getAccessToken();
 
         GithubInfoResponse githubInfoResponse = githubGetClient.get(token);

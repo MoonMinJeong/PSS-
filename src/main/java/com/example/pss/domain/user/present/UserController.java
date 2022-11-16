@@ -1,13 +1,9 @@
 package com.example.pss.domain.user.present;
 
-import com.example.pss.domain.user.present.dto.TokenResponse;
-import com.example.pss.domain.user.present.dto.UserListResponse;
-import com.example.pss.domain.user.present.dto.UserProfileResponse;
+import com.example.pss.domain.user.present.dto.*;
 import com.example.pss.domain.user.service.*;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,8 +15,13 @@ public class UserController {
     private final UserSaveMyGetService userSaveMyGetService;
 
     @GetMapping("/auth")
-    public TokenResponse code(@RequestParam String code) {
-        return githubOauthService.getCode(code);
+    public CodeResponse code(@RequestParam String code) {
+        return CodeResponse.builder().code(code).build();
+    }
+
+    @PostMapping("/auth")
+    public TokenResponse token(@RequestBody CodeRequest request) {
+        return githubOauthService.getCode(request);
     }
 
     @GetMapping("/user")
