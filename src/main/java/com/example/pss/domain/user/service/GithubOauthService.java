@@ -2,7 +2,6 @@ package com.example.pss.domain.user.service;
 
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.domain.user.domain.repository.UserRepository;
-import com.example.pss.domain.user.present.dto.CodeRequest;
 import com.example.pss.domain.user.present.dto.TokenResponse;
 import com.example.pss.global.enums.Authority;
 import com.example.pss.global.properties.GithubProperties;
@@ -11,10 +10,8 @@ import com.example.pss.infrastructure.feign.client.GithubAuthClient;
 import com.example.pss.infrastructure.feign.client.GithubGetClient;
 import com.example.pss.infrastructure.feign.dto.response.GithubInfoResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
 public class GithubOauthService {
@@ -24,12 +21,12 @@ public class GithubOauthService {
     private final UserRepository userRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public TokenResponse getCode(CodeRequest request) {
+    public TokenResponse getCode(String code) {
 
         String token = "Bearer " + githubAuthClient.GithubAuth(
                 githubProperties.getClientId(),
                 githubProperties.getClientSecret(),
-                request.getCode()
+                code
         ).getAccessToken();
 
         GithubInfoResponse githubInfoResponse = githubGetClient.get(token);
@@ -40,7 +37,7 @@ public class GithubOauthService {
                             .nickname(githubInfoResponse.getLogin())
                             .imageUrl(githubInfoResponse.getAvatarUrl())
                             .email(githubInfoResponse.getEmail())
-                            .authority(Authority.user)
+                            .authority(Authority.USER)
                             .build()
             );
         }
@@ -51,7 +48,7 @@ public class GithubOauthService {
         return TokenResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
-                .authority(Authority.user)
+                .authority(Authority.USER)
                 .build();
     }
 }

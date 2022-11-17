@@ -54,3 +54,10 @@ cloud:
       static: ${S3_REGION:ap-northeast-2}
     stack:
       auto: false
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 10000

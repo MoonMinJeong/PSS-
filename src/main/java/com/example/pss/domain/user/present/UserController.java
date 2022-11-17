@@ -15,15 +15,10 @@ public class UserController {
     private final UserSaveMyGetService userSaveMyGetService;
 
     @GetMapping("/auth")
-    public CodeResponse code(@RequestParam String code) {
-        return CodeResponse.builder().code(code).build();
+    public TokenResponse token(@RequestParam String code) {
+        return githubOauthService.getCode(code);
     }
-
-    @PostMapping("/auth")
-    public TokenResponse token(@RequestBody CodeRequest request) {
-        return githubOauthService.getCode(request);
-    }
-
+    
     @GetMapping("/user")
     public UserListResponse userList(@RequestParam String nickname) {
         return searchUserService.userList(nickname);

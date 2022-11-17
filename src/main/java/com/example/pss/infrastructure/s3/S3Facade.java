@@ -23,7 +23,7 @@ public class S3Facade implements ImageUtil{
         if (file.isEmpty()) {
             throw ImageNotValueException.EXCEPTION;
         }
-
+        
         String fileName = s3Properties.getS3Bucket() + "/" + UUID.randomUUID() + file.getOriginalFilename();
 
         try {

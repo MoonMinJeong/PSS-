@@ -30,7 +30,6 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/auth").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
                 .antMatchers(HttpMethod.POST, "/image").permitAll()
                 .anyRequest().authenticated()
 
