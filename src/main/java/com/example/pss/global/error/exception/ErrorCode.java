@@ -26,7 +26,8 @@ public enum ErrorCode {
     USER_EXISTS(409, "USER-409-1", "User Exists"),
     LIKE_EXISTS(409, "LIKE-409-1", "Like Exists"),
     STACK_EXISTS(409, "STACK-409-1", "Stack Exists"),
-    MEMBER_EXISTES(409, "MEMBER-409-1", "Memeber Exists"),
+    MEMBER_EXISTES(409, "MEMBER-409-1", "Member Exists"),
+    STAR_EXISTS(409, "STAR-409-1", "Star Exists"),
 
     USER_NOTFOUND_EXCEPTION(404, "user-404-1", "user not found");
 

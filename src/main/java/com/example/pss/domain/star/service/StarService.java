@@ -4,6 +4,7 @@ import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.star.domain.Star;
 import com.example.pss.domain.star.domain.repository.StarRepository;
+import com.example.pss.domain.star.exception.StarExistException;
 import com.example.pss.domain.star.exception.StarNotFoundException;
 import com.example.pss.domain.star.facade.StarFacade;
 import com.example.pss.domain.star.present.dto.StarRequest;
@@ -28,6 +29,10 @@ public class StarService {
         User user = userFacade.getCurrentUser();
         Notice notice = noticeFacade.findById(noticeId);
 
+        if (starRepository.findByNoticeAndUser(notice, user).isPresent()) {
+            throw StarExistException.EXCEPTION;
+        }
+
         starRepository.save(
                 Star.builder()
                         .stars(request.getStars())
@@ -38,7 +43,7 @@ public class StarService {
 
         notice.updateStar(starFacade.findAllByNotice(notice));
     }
-    
+
     @Transactional
     public void update(UUID noticeId, StarRequest request) {
         User user = userFacade.getCurrentUser();
