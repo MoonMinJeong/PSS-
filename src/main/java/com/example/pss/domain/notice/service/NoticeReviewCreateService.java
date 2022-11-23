@@ -10,6 +10,7 @@ import com.example.pss.domain.notice.present.dto.request.CreateRequest;
 import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.review.domain.Review;
 import com.example.pss.domain.review.domain.repository.ReviewRepository;
+import com.example.pss.domain.review.exception.ReviewExistException;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
 import com.example.pss.domain.user.domain.User;
@@ -38,12 +39,16 @@ public class NoticeReviewCreateService {
 
         Notice notices = noticeFacade.findById(noticeId);
 
+        if (reviewRepository.findByUserAndNotice(user, notices).isPresent()) {
+            throw ReviewExistException.EXCEPTION;
+        }
+
         Notice notice = noticeRepository.save(
                 Notice.builder()
                         .title(request.getTitle())
                         .content(request.getContent())
                         .imageUrl(request.getImageUrl())
-                        .noticeType(NoticeType.POST)
+                        .noticeType(NoticeType.REVIEW)
                         .star(0)
                         .viewCount(0)
                         .introduction(request.getContent().substring(20))

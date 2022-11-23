@@ -6,6 +6,7 @@ import com.example.pss.domain.notice.present.dto.request.UpdateRequest;
 import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeOneResponse;
 import com.example.pss.domain.notice.present.dto.response.NoticeResponse;
+import com.example.pss.domain.notice.present.dto.response.ReviewResponse;
 import com.example.pss.domain.notice.service.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +28,7 @@ public class NoticeController {
     private final NoticeSaveService noticeSaveService;
     private final NoticeSaveListService noticeSaveListService;
     private final NoticeReviewCreateService noticeReviewCreateService;
+    private final ReviewGetService reviewGetService;
 
     @PostMapping
     public NoticeIdResponse create(@RequestBody @Valid CreateRequest request) {
@@ -41,6 +43,11 @@ public class NoticeController {
     @PostMapping("/review/{noticeId}")
     public NoticeIdResponse review(@RequestBody @Valid CreateRequest request, @PathVariable("noticeId") UUID noticeId) {
         return noticeReviewCreateService.save(request, noticeId);
+    }
+
+    @GetMapping("/review/{noticeId}")
+    public ReviewResponse review(@PathVariable("noticeId") UUID noticeId) {
+        return reviewGetService.getNotice(noticeId);
     }
 
     @PutMapping("/{id}")
