@@ -7,7 +7,6 @@ import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.domain.type.NoticeType;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.notice.present.dto.request.CreateRequest;
-import com.example.pss.domain.notice.present.dto.request.CreateReviewRequest;
 import com.example.pss.domain.notice.present.dto.response.NoticeIdResponse;
 import com.example.pss.domain.review.domain.Review;
 import com.example.pss.domain.review.domain.repository.ReviewRepository;
@@ -34,14 +33,14 @@ public class NoticeReviewCreateService {
     private final ReviewRepository reviewRepository;
 
     @Transactional
-    public NoticeIdResponse save(CreateReviewRequest request, UUID noticeId) {
+    public NoticeIdResponse save(CreateRequest request, UUID noticeId) {
         User user = userFacade.getCurrentUser();
 
         Notice notices = noticeFacade.findById(noticeId);
 
         Notice notice = noticeRepository.save(
                 Notice.builder()
-                        .title(notices.getTitle() + "의 회고록")
+                        .title(request.getTitle())
                         .content(request.getContent())
                         .imageUrl(request.getImageUrl())
                         .noticeType(NoticeType.POST)
@@ -56,27 +55,31 @@ public class NoticeReviewCreateService {
         List<Stack> stackList = new ArrayList<>();
         List<Member> memberList = new ArrayList<>();
 
-        for (Stack tech : notices.getStacks()) {
+        for (String tech : request.getStacks()) {
+            if (stackRepository.findByTechNameAndNotice(tech, notice).isEmpty()) {
                 stackList.add(
                         stackRepository.save(
                                 Stack.builder()
-                                        .techName(tech.getTechName())
+                                        .techName(tech)
                                         .notice(notice)
                                         .build()
                         )
                 );
+            }
         }
 
-        for (Member nickname : notices.getMembers()) {
+        for (String nickname : request.getNicknames()) {
+            if (memberRepository.findByNicknameAndNotice(nickname, notice).isEmpty()) {
                 memberList.add(
                         memberRepository.save(
                                 Member.builder()
-                                        .nickname(nickname.getNickname())
+                                        .nickname(nickname)
                                         .user(user)
                                         .notice(notice)
                                         .build()
                         )
                 );
+            }
         }
 
         notice.updateList(stackList, memberList);

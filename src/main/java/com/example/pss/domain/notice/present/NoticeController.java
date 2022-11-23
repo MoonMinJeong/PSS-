@@ -39,7 +39,7 @@ public class NoticeController {
     }
 
     @PostMapping("/review/{noticeId}")
-    public NoticeIdResponse review(@RequestBody @Valid CreateReviewRequest request, @PathVariable("noticeId") UUID noticeId) {
+    public NoticeIdResponse review(@RequestBody @Valid CreateRequest request, @PathVariable("noticeId") UUID noticeId) {
         return noticeReviewCreateService.save(request, noticeId);
     }
 

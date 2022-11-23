@@ -39,7 +39,7 @@ public class CommentResponse {
         this.createdAt = createdAt;
         this.replyDtoList = new ArrayList<>();
         for (Reply reply : list) {
-            replyDtoList.add(new ReplyDto(reply.getId(), reply.getUser().getNickname(), reply.getContent(), reply.getUser().getImageUrl(), reply.isMine(), reply.getCreateTime()));
+            replyDtoList.add(new ReplyDto(reply.getId(), reply.getUser().getNickname(), reply.getContent(), reply.getUser().getImageUrl(), reply.isMine(), reply.getCreateTime().plusHours(9)));
         }
     }
 }

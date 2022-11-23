@@ -50,7 +50,7 @@ public class NoticeIntroService {
                                 comment.getContent(),
                                 comment.getUser().getImageUrl(),
                                 comment.isMine(),
-                                comment.getCreateTime(),
+                                comment.getCreateTime().plusHours(9),
                                 commentRepository.getReplyById(comment.getId())
                         ))
                 .collect(Collectors.toList());
@@ -69,7 +69,7 @@ public class NoticeIntroService {
                 .isStar(starRepository.findByNoticeAndUser(notice, user).isPresent())
                 .isReviewed(reviewRepository.findByUserAndNotice(user, notice).isPresent())
                 .myStar(starFacade.findByNoticeAndUser(notice, user))
-                .createTime(notice.getCreateTime())
+                .createTime(notice.getCreateTime().plusHours(9))
                 .profileImage(notice.getUser().getImageUrl())
                 .list(list)
                 .build();

@@ -10,5 +10,6 @@ import javax.validation.constraints.Size;
 public class CreateReviewRequest {
     @Size(min = 20, message = "최소 20글자는 써야합니다")
     private String content;
+    
     private String imageUrl;
 }

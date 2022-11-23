@@ -40,7 +40,7 @@ public class NoticeGetService {
                                         .nickname(notice.getUser().getNickname())
                                         .profileImage(notice.getUser().getImageUrl())
                                         .stacks(stackFacade.findAllByNotice(notice))
-                                        .createTime(notice.getCreateTime())
+                                        .createTime(notice.getCreateTime().plusHours(9))
                                         .build()
                         )
                         .collect(Collectors.toList());
@@ -62,7 +62,7 @@ public class NoticeGetService {
                                         .nickname(notice.getUser().getNickname())
                                         .profileImage(notice.getUser().getImageUrl())
                                         .stacks(stackFacade.findAllByNotice(notice))
-                                        .createTime(notice.getCreateTime())
+                                        .createTime(notice.getCreateTime().plusHours(9))
                                         .build()
                         )
                         .collect(Collectors.toList());
@@ -86,7 +86,7 @@ public class NoticeGetService {
                                         .nickname(notice.getUser().getNickname())
                                         .profileImage(notice.getUser().getImageUrl())
                                         .stacks(stackFacade.findAllByNotice(notice))
-                                        .createTime(notice.getCreateTime())
+                                        .createTime(notice.getCreateTime().plusHours(9))
                                         .build()
                         )
                         .collect(Collectors.toList());
@@ -108,7 +108,7 @@ public class NoticeGetService {
                                         .nickname(notice.getUser().getNickname())
                                         .profileImage(notice.getUser().getImageUrl())
                                         .stacks(stackFacade.findAllByNotice(notice))
-                                        .createTime(notice.getCreateTime())
+                                        .createTime(notice.getCreateTime().plusHours(9))
                                         .build()
                         )
                         .collect(Collectors.toList());
