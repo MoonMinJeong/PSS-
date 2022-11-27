@@ -22,6 +22,7 @@ public enum ErrorCode {
     COMMENT_NOT_FOUND(404, "comment-404-1", "comment not found"),
     REPLY_NOT_FOUND(404, "reply-404-1", "reply not found"),
     IMAGE_VALUE_NOT_FOUND(404, "COMMON-404-1", "Image Value Not Found"),
+    REVIEW_NOT_FOUND(404, "REVIEW-404-1", "Review Not Found"),
 
     USER_EXISTS(409, "USER-409-1", "User Exists"),
     LIKE_EXISTS(409, "LIKE-409-1", "Like Exists"),

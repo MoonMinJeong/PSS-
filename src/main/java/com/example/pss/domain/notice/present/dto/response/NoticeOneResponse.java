@@ -29,6 +29,8 @@ public class NoticeOneResponse {
     private Boolean isStar;
     private Boolean isReviewed;
 
+    private UUID reviewId;
+
     private float myStar;
 
     private String profileImage;
