@@ -30,9 +30,14 @@ public class Review {
     @JoinColumn(name = "notice_id", nullable = false)
     private Notice notice;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "review_id", nullable = false)
+    private Notice review;
+
     @Builder
-    public Review(User user, Notice notice) {
+    public Review(User user, Notice notice, Notice review) {
         this.user = user;
         this.notice = notice;
+        this.review = review;
     }
 }

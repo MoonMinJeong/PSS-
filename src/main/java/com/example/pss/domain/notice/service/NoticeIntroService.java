@@ -74,7 +74,7 @@ public class NoticeIntroService {
                 .isLike(likeRepository.findByUserAndNotice(user, notice).isPresent())
                 .isStar(starRepository.findByNoticeAndUser(notice, user).isPresent())
                 .isReviewed(reviewRepository.findByUserAndNotice(user, notice).isPresent())
-                .reviewId(review.getId())
+                .reviewId(review.getReview().getId())
                 .myStar(starFacade.findByNoticeAndUser(notice, user))
                 .createTime(notice.getCreateTime().plusHours(9))
                 .profileImage(notice.getUser().getImageUrl())

@@ -93,6 +93,7 @@ public class NoticeReviewCreateService {
                 Review.builder()
                         .user(userFacade.getCurrentUser())
                         .notice(notices)
+                        .review(notice)
                         .build()
         );
 
