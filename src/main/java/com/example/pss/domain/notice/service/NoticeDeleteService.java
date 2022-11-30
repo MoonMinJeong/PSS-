@@ -6,6 +6,7 @@ import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.notice.domain.repository.NoticeRepository;
 import com.example.pss.domain.notice.facade.NoticeFacade;
 import com.example.pss.domain.reply.domain.repository.ReplyRepository;
+import com.example.pss.domain.review.domain.repository.ReviewRepository;
 import com.example.pss.domain.stack.domain.repository.StackRepository;
 import com.example.pss.domain.star.domain.repository.StarRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +26,7 @@ public class NoticeDeleteService {
     private final NoticeRepository noticeRepository;
     private final StackRepository stackRepository;
     private final StarRepository starRepository;
+    private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
 
     @Transactional
@@ -36,6 +38,7 @@ public class NoticeDeleteService {
         starRepository.deleteAllByNotice(notice);
         memberRepository.deleteAllByNotice(notice);
         stackRepository.deleteAllByNotice(notice);
+        reviewRepository.deleteReviewsByNotice(notice);
         noticeRepository.delete(notice);
     }
 }

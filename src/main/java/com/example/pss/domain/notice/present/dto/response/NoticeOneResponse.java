@@ -17,6 +17,8 @@ public class NoticeOneResponse {
     private String title;
     private String content;
 
+    private String name;
+
     private Integer likes;
 
     private float stars;
