@@ -1,6 +1,7 @@
 package com.example.pss.domain.comment.present.dto.response;
 
 import com.example.pss.domain.reply.domain.Reply;
+import com.example.pss.domain.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -30,7 +31,7 @@ public class CommentResponse {
         private final LocalDateTime createdAt;
     }
 
-    public CommentResponse(UUID id, String nickname, String content, String imageUrl, Boolean isMine, LocalDateTime createdAt, List<Reply> list) {
+    public CommentResponse(UUID id, String nickname, String content, String imageUrl, Boolean isMine, LocalDateTime createdAt, List<Reply> list, User user) {
         this.id = id;
         this.nickname = nickname;
         this.content = content;
@@ -39,7 +40,7 @@ public class CommentResponse {
         this.createdAt = createdAt;
         this.replyDtoList = new ArrayList<>();
         for (Reply reply : list) {
-            replyDtoList.add(new ReplyDto(reply.getId(), reply.getUser().getNickname(), reply.getContent(), reply.getUser().getImageUrl(), reply.isMine(), reply.getCreateTime().plusHours(9)));
+            replyDtoList.add(new ReplyDto(reply.getId(), reply.getUser().getNickname(), reply.getContent(), reply.getUser().getImageUrl(), reply.getUser().equals(user), reply.getCreateTime().plusHours(9)));
         }
     }
 }

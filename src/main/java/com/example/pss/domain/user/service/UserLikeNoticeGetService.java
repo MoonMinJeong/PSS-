@@ -38,7 +38,7 @@ public class UserLikeNoticeGetService {
                                 .viewCount(notice.getViewCount())
                                 .stars(starFacade.findAllByNotice(notice))
                                 .likes(likeRepository.findAllByNotice(notice).size())
-                                .isMine(notice.isMine())
+                                .isMine(notice.getUser().equals(user))
                                 .nickname(notice.getUser().getNickname())
                                 .profileImage(notice.getUser().getImageUrl())
                                 .stacks(stackFacade.findAllByNotice(notice))

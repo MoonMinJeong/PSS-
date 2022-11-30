@@ -28,3 +28,5 @@ public interface NoticeRepository extends JpaRepository<Notice, UUID>, NoticeCus
 
     List<Notice> findAllByStarGreaterThanEqualAndNoticeTypeOrderByStarDesc(float star, NoticeType noticeType);
 }
+
+// 그 유저와
