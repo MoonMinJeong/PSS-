@@ -2,10 +2,7 @@ package com.example.pss.domain.user.domain;
 
 import com.example.pss.global.entity.BaseTimeEntity;
 import com.example.pss.global.enums.Authority;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,6 +11,8 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @Table(name = "tbl_user")
 @Entity
 public class User extends BaseTimeEntity {
@@ -37,12 +36,4 @@ public class User extends BaseTimeEntity {
     @NotNull
     @Column
     private Authority authority;
-
-    @Builder
-    public User(String nickname, String imageUrl, String email, Authority authority) {
-        this.nickname = nickname;
-        this.imageUrl = imageUrl;
-        this.email = email;
-        this.authority = authority;
-    }
 }

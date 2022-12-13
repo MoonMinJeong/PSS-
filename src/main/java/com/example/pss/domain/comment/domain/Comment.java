@@ -3,10 +3,7 @@ package com.example.pss.domain.comment.domain;
 import com.example.pss.domain.notice.domain.Notice;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.global.entity.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -14,6 +11,8 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @Table(name = "tbl_comment")
 @Entity
 public class Comment extends BaseTimeEntity {
@@ -36,14 +35,6 @@ public class Comment extends BaseTimeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "notice_id")
     private Notice notice;
-
-    @Builder
-    public Comment(String content, boolean isMine, User user, Notice notice) {
-        this.content = content;
-        this.isMine = isMine;
-        this.user = user;
-        this.notice = notice;
-    }
 
     public void update(String content) {
         this.content = content;

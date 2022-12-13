@@ -41,8 +41,7 @@ public class NoticeCreateService {
                         .noticeType(NoticeType.POST)
                         .star(0)
                         .viewCount(0)
-                        .introduction(request.getContent().substring(20))
-                        .isMine(true)
+                        .introduction(request.getContent().substring(0,20))
                         .user(user)
                         .build()
         );

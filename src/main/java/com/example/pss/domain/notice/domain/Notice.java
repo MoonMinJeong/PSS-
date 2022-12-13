@@ -5,10 +5,7 @@ import com.example.pss.domain.notice.domain.type.NoticeType;
 import com.example.pss.domain.stack.domain.Stack;
 import com.example.pss.domain.user.domain.User;
 import com.example.pss.global.entity.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -20,6 +17,8 @@ import java.util.UUID;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder
 @Table(name = "tbl_notice")
 @Entity
 public class Notice extends BaseTimeEntity {
@@ -66,20 +65,6 @@ public class Notice extends BaseTimeEntity {
 
     @OneToMany(mappedBy = "notice", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private List<Member> members = new ArrayList<>();
-
-
-    @Builder
-    public Notice(String title, String content, String imageUrl, float star, Integer viewCount, String introduction, boolean isMine, User user, NoticeType noticeType) {
-        this.title = title;
-        this.content = content;
-        this.imageUrl = imageUrl;
-        this.introduction = introduction;
-        this.star = star;
-        this.viewCount = viewCount;
-        this.isMine = isMine;
-        this.user = user;
-        this.noticeType = noticeType;
-    }
 
     public void UpdateNotice(String title, String content, List<Stack> stacks, List<Member> members) {
         this.title = title;
