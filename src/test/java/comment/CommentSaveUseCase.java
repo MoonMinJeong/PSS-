@@ -14,13 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -28,6 +25,9 @@ public class CommentSaveUseCase {
 
     @Mock
     private CommentRepository commentRepository;
+
+    @Mock
+    private UserFacade userFacade;
 
     @Mock
     private NoticeFacade noticeFacade;
@@ -39,6 +39,10 @@ public class CommentSaveUseCase {
     void 댓글_테스트() {
         String content = "댓글";
 
+        CommentRequest commentRequest = CommentRequest.builder()
+                .content(content)
+                .build();
+
         User user = User.builder()
                 .id(UUID.randomUUID())
                 .build();
@@ -49,22 +53,18 @@ public class CommentSaveUseCase {
 
         Comment comment = Comment.builder()
                 .id(UUID.randomUUID())
-                .content(content)
+                .content(commentRequest.getContent())
                 .isMine(true)
                 .user(user)
                 .notice(notice)
                 .build();
 
-        CommentRequest commentRequest = CommentRequest
-                .builder()
-                .content(content)
-                .build();
-
-        given(commentRepository.save(comment).getId()).willReturn(comment.getId());
+        given(commentRepository.save(any()))
+                .willReturn(comment);
 
         assertEquals(user, comment.getUser());
         assertEquals(notice, comment.getNotice());
 
-        commentService.create(notice.getId(), commentRequest);
+        commentService.create(comment.getNotice().getId(), commentRequest);
     }
 }
